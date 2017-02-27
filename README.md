@@ -1,2 +1,2 @@
-## Blog the workshop branch
+## My Blog
 Happy writing~

@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>leon&#39;s blog</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://jazzysnail.github.io/"/>
+  <updated>2017-02-27T14:41:06.229Z</updated>
+  <id>http://jazzysnail.github.io/</id>
+  
+  <author>
+    <name>leon</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【分享】vue</title>
+    <link href="http://jazzysnail.github.io/2016/08/25/vue-share/"/>
+    <id>http://jazzysnail.github.io/2016/08/25/vue-share/</id>
+    <published>2016-08-25T10:00:58.000Z</published>
+    <updated>2017-02-27T14:41:06.229Z</updated>
+    
+    <content type="html"><![CDATA[<p>在公司做的一个关于vue的技术小分享，分享内容不多，拿来填一点文字当一篇博文了吧，懒癌晚期，哈哈~<br>不过里面有关于“深度响应式”的深入研究，有源码可以看~</p>
+<a id="more"></a>
+<h2 id="什么是vue？-定义"><a href="#什么是vue？-定义" class="headerlink" title="什么是vue？(定义)"></a>什么是vue？(定义)</h2><p><strong>数据驱动</strong> 的 <strong>组件系统</strong> ~</p>
+<p><img src="http://vuejs.org.cn/images/mvvm.png" alt=""></p>
+<h2 id="为什么-好处"><a href="#为什么-好处" class="headerlink" title="为什么?(好处)"></a>为什么?(好处)</h2><ol>
+<li>组件化</li>
+<li>mvvm</li>
+<li>轻量化</li>
+</ol>
+<h2 id="深度响应式原理"><a href="#深度响应式原理" class="headerlink" title="深度响应式原理"></a>深度响应式原理</h2><p><a href="https://vuejs.org/guide/reactivity.html" target="_blank" rel="external">Reactivity in Depth - vue.js</a></p>
+<p><img src="https://vuejs.org/images/data.png" alt=""></p>
+<h3 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h3><p>以下是我连抄带查写出来的模拟vue的双向绑定的js源码，分享给大家看一哈，以下代码模拟了vue的变量填充和input的双向绑定。不想看代码可以直接拉到下面看效果或下载源码~ :-)</p>
+<p><strong>html:</strong><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"biu"</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;say&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"msg"</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"say"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>javascript:</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> bindingMark = <span class="string">'data-element-binding'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">biu</span>(<span class="params">el, initData</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> self = <span class="keyword">this</span>;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> el = self.el = <span class="built_in">document</span>.getElementById(el);</div><div class="line"></div><div class="line">  <span class="keyword">var</span> bindings = &#123;&#125;; <span class="comment">// 内部暂存绑定数据及dom</span></div><div class="line"></div><div class="line">  <span class="keyword">var</span> data = self.data = &#123;&#125;; <span class="comment">// 由外部传入的data对象</span></div><div class="line">  <span class="comment">// 构造挂载点</span></div><div class="line">  <span class="built_in">console</span>.info(<span class="string">"构造挂载钩子"</span>);</div><div class="line">  <span class="comment">// 挂载变量</span></div><div class="line">  <span class="keyword">var</span> content = el.innerHTML.replace(<span class="regexp">/\&#123;\&#123;(.*)\&#125;\&#125;/g</span>, markToken);</div><div class="line">  <span class="comment">// 挂载表单</span></div><div class="line">  content = content.replace(<span class="regexp">/v-model=\"(.*)\"/g</span>, markTokenVmodel);</div><div class="line">  <span class="comment">// 填充模板</span></div><div class="line">  el.innerHTML = content;</div><div class="line">  <span class="comment">// 将每个数据的名称比如'msg'绑定到data</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> variable <span class="keyword">in</span> bindings) &#123;</div><div class="line">    bind(variable);</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 遍历传入的对象映射到data</span></div><div class="line">  <span class="keyword">if</span> (initData) &#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> variable <span class="keyword">in</span> initData) &#123;</div><div class="line">      data[variable] = initData[variable]</div><div class="line">    &#125;</div><div class="line">    keyup(<span class="built_in">Object</span>.keys(initData));</div><div class="line">  &#125;</div><div class="line">  <span class="comment">/*</span></div><div class="line">  * string.property.replace 的函数参数</div><div class="line">  * @param &#123;string&#125; match ($&amp;)</div><div class="line">  * @param &#123;string&#125; variable ((.*))</div><div class="line">  * @return &#123;string&#125; markTokenString</div><div class="line">  */</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">markToken</span>(<span class="params">match, variable</span>) </span>&#123;</div><div class="line">    bindings[variable] = &#123;&#125;</div><div class="line">    <span class="keyword">return</span> <span class="string">'&lt;span '</span> + bindingMark + <span class="string">'="'</span> + variable + <span class="string">'"&gt;&lt;/span&gt;'</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">markTokenVmodel</span>(<span class="params">match, variable</span>) </span>&#123;</div><div class="line">    bindings[variable] = &#123;&#125;</div><div class="line">    <span class="keyword">return</span> <span class="string">'id="'</span> + variable + <span class="string">'"'</span> + bindingMark + <span class="string">'="'</span> + variable + <span class="string">'"'</span></div><div class="line">  &#125;</div><div class="line">  <span class="comment">/*</span></div><div class="line">  * 表单事件</div><div class="line">  * @param &#123;array&#125; id</div><div class="line">  */</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">keyup</span> (<span class="params">id</span>) </span>&#123;</div><div class="line">    id.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">ids,index,array</span>) </span>&#123;</div><div class="line">      <span class="built_in">document</span>.getElementById(ids).onkeyup = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        app.data[ids] = <span class="keyword">this</span>.value;</div><div class="line">      &#125;;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/* binding</span></div><div class="line">  * @param &#123;string&#125; variable (data.property)</div><div class="line">  */</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bind</span>(<span class="params">variable</span>) </span>&#123;</div><div class="line">    <span class="comment">// 选中挂载点 &#123;nodeObj&#125; bindings.variable.els</span></div><div class="line">    <span class="built_in">console</span>.info(<span class="string">"选中挂载点"</span>);</div><div class="line">    bindings[variable].els = el.querySelectorAll(<span class="string">'['</span> + bindingMark + <span class="string">'="'</span> + variable + <span class="string">'"]'</span>);</div><div class="line">    <span class="built_in">console</span>.info(<span class="string">"删除挂载钩子"</span>);</div><div class="line">    <span class="comment">// Array.prototype.forEach.call(...);为了使用forEach</span></div><div class="line">    [].forEach.call(bindings[variable].els, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; <span class="comment">//删除data-element-binding属性</span></div><div class="line">      e.removeAttribute(bindingMark);</div><div class="line">    &#125;)</div><div class="line">    <span class="comment">// 创建观察者</span></div><div class="line">    <span class="built_in">console</span>.info(<span class="string">"创建观察者"</span>);</div><div class="line">    <span class="built_in">Object</span>.defineProperty(data, variable, &#123; <span class="comment">//es5观察属性</span></div><div class="line">      set: <span class="function"><span class="keyword">function</span>(<span class="params">newVal</span>) </span>&#123;</div><div class="line">        [].forEach.call(bindings[variable].els, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">          bindings[variable].value = e.value = newVal;</div><div class="line">          bindings[variable].value = e.textContent = newVal;</div><div class="line">        &#125;)</div><div class="line">      &#125;,</div><div class="line">      <span class="attr">get</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> bindings[variable].value <span class="comment">//取数据仅仅是内部暂存的数据</span></div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> app = <span class="keyword">new</span> biu(<span class="string">'biu'</span>, &#123;</div><div class="line">    <span class="attr">msg</span>: <span class="string">'hello'</span>,</div><div class="line">    <span class="attr">say</span>: <span class="string">'world!'</span></div><div class="line">  &#125;)</div></pre></td></tr></table></figure></p>
+<div class="tip"><br>  下面是以上代码的演示：你可以使用<code>F12</code>打开控制台更改<code>app.data.msg</code>和<code>app.data.say</code>的值来查看变化，或在输入框输入内容，后在控制台输出<code>app.data.msg</code>和<code>app.data.say</code>的值来查看变化，或 <a href="http://oaul0t4t1.bkt.clouddn.com/file/vue-binding-demo.html" target="_blank" rel="external">下载源码</a><br></div>
+
+<pre>
+  <div id="biu">
+    <span>\{\{msg\}\}</span>
+    <span>\{\{say\}\}</span><br>
+    <input type="text" v-model="msg">
+    <input type="text" v-model="say"><br>
+  </div>
+</pre>
+
+<script>
+  var bindingMark = 'data-element-binding';
+  function biu(el, initData) {
+    var self = this;
+
+    var el = self.el = document.getElementById(el);
+
+    var bindings = {}; // 内部暂存绑定数据及dom
+
+    var data = self.data = {}; // 由外部传入的data对象
+    // 构造挂载点
+    console.info("构造挂载钩子");
+    // 挂载变量
+    var content = el.innerHTML.replace(/\\{\\{(.*)\\}\\}/g, markToken);
+    // console.log(content);
+    // 挂载表单
+    content = content.replace(/v-model=\"(.*)\"/g, markTokenVmodel);
+    // 填充模板
+    el.innerHTML = content;
+    // 将每个数据的名称比如'msg'绑定到data
+    for (var variable in bindings) {
+      bind(variable);
+    }
+    // 遍历传入的对象映射到data
+    if (initData) {
+      for (var variable in initData) {
+        data[variable] = initData[variable]
+      }
+      keyup(Object.keys(initData));
+    }
+    /*
+    * string.property.replace 的函数参数
+    * @param {string} match ($&)
+    * @param {string} variable ((.*))
+    * @return {string} markTokenString
+    */
+    function markToken(match, variable) {
+      bindings[variable] = {}
+      return '<span ' + bindingMark + '="' + variable + '"></span>'
+    }
+
+    function markTokenVmodel(match, variable) {
+      bindings[variable] = {}
+      return 'id="' + variable + '"' + bindingMark + '="' + variable + '"'
+    }
+    /*
+    * 表单事件
+    * @param {array} id
+    */
+    function keyup (id) {
+      id.forEach(function (ids,index,array) {
+        document.getElementById(ids).onkeyup = function () {
+          app.data[ids] = this.value;
+        };
+      });
+    }
+
+    /* binding
+    * @param {string} variable (data.property)
+    */
+    function bind(variable) {
+      // 选中挂载点 {nodeObj} bindings.variable.els
+      console.info("选中挂载点");
+      bindings[variable].els = el.querySelectorAll('[' + bindingMark + '="' + variable + '"]');
+      console.info("删除挂载钩子");
+      // Array.prototype.forEach.call(...);为了使用forEach
+      [].forEach.call(bindings[variable].els, function(e) { //删除data-element-binding属性
+        e.removeAttribute(bindingMark);
+      })
+      // 创建观察者
+      console.info("创建观察者");
+      Object.defineProperty(data, variable, { //es5观察属性
+        set: function(newVal) {
+          [].forEach.call(bindings[variable].els, function(e) {
+            bindings[variable].value = e.value = newVal;
+            bindings[variable].value = e.textContent = newVal;
+          })
+        },
+        get: function() {
+          return bindings[variable].value //取数据仅仅是内部暂存的数据
+        }
+      })
+    }
+  }
+
+  var app = new biu('biu', {
+    msg: 'hello',
+    say: 'world!'
+  })
+</script>
+
+
+<h2 id="组件系统"><a href="#组件系统" class="headerlink" title="组件系统"></a>组件系统</h2><p><img src="http://vuejs.org/images/components.png" alt=""></p>
+<p><a href="https://www.facebook.com/" target="_blank" rel="external">Facebook - 典型的单页多模块</a></p>
+<h3 id="代码实例-1"><a href="#代码实例-1" class="headerlink" title="代码实例"></a>代码实例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"example"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">my-component</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义</span></div><div class="line"><span class="keyword">var</span> MyComponent = Vue.extend(&#123;</div><div class="line">  <span class="attr">template</span>: <span class="string">'&lt;div&gt;hello danlu!&lt;/div&gt;'</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 注册</span></div><div class="line">Vue.component(<span class="string">'my-component'</span>, MyComponent)</div><div class="line"></div><div class="line"><span class="comment">// 创建根实例</span></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#example'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><strong>输出：</strong><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"example"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>hello danlu!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="模块化-amp-单文件组件-Webpack"><a href="#模块化-amp-单文件组件-Webpack" class="headerlink" title="模块化&amp;单文件组件(Webpack)"></a>模块化&amp;单文件组件(Webpack)</h3><p>在使用vue构建大型应用时，可以使用vue + Webpack来构建工程，使用Webpack来进行文件打包，这样我们可以将稳定的单页拆分成多个组件，并且可以以单个文件的形式来将模块样式和模板以及业务封装在一起。当然这需要<a href="https://github.com/vuejs/vue-loader" target="_blank" rel="external"> vue-loader </a>的帮助。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 单文件组件 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"less"</span>&gt;</span><span class="undefined"></span></div><div class="line">  /*这里是样式*/</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- 这里是模板 --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="comment">// 这里是脚本</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h2><p>有时我们需要在vue构建页面的一些阶段来执行一些代码或者请求一个接口，而不是等待页面构建完成后由用户行为触发，这时我们需要使用到vue的生<strong>命周期钩子</strong>，他可以帮助我们在，不同的阶段自动的执行一些特定的代码。如下图：</p>
+<p><a href="http://vuejs.org.cn/api/#" target="_blank" rel="external">查看官方的介绍</a></p>
+<p><img src="http://vuejs.org.cn/images/lifecycle.png" alt=""></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 使用</span></div><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">    <span class="attr">a</span>: <span class="number">1</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">created</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// `this` 指向 vm 实例</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'a is: '</span> + <span class="keyword">this</span>.a)</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"><span class="comment">// -&gt; "a is: 1"</span></div></pre></td></tr></table></figure>
+<h2 id="拓展阅读"><a href="#拓展阅读" class="headerlink" title="拓展阅读"></a>拓展阅读</h2><p><a href="http://vuejs.org" target="_blank" rel="external">vue.js</a></p>
+<p><a href="http://webpack.github.io" target="_blank" rel="external">webpack module bundler</a></p>
+<p><a href="https://github.com/vuejs/vue-loader" target="_blank" rel="external">vuejs/vue-loader</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在公司做的一个关于vue的技术小分享，分享内容不多，拿来填一点文字当一篇博文了吧，懒癌晚期，哈哈~&lt;br&gt;不过里面有关于“深度响应式”的深入研究，有源码可以看~&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="http://jazzysnail.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jazzysnail / 字体教程</title>
+    <link href="http://jazzysnail.github.io/2016/08/22/jazzysnail-font/"/>
+    <id>http://jazzysnail.github.io/2016/08/22/jazzysnail-font/</id>
+    <published>2016-08-22T12:43:57.000Z</published>
+    <updated>2017-02-27T14:41:06.187Z</updated>
+    
+    <content type="html"><![CDATA[<p>站酷的字体教程同步过来~<br><a id="more"></a><br><img src="http://img.zcool.cn/community/02045157b957390000012e7e07ae5e.png" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;站酷的字体教程同步过来~&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="art" scheme="http://jazzysnail.github.io/tags/art/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>not defined和undefined和Null到底谁是异教徒？</title>
+    <link href="http://jazzysnail.github.io/2016/08/08/not-defined&amp;undefined/"/>
+    <id>http://jazzysnail.github.io/2016/08/08/not-defined&amp;undefined/</id>
+    <published>2016-08-08T11:29:52.000Z</published>
+    <updated>2017-02-27T14:41:06.195Z</updated>
+    
+    <content type="html"><![CDATA[<p>又一个需求完结了，最近好“闲”！总结一个好玩的东西，那就是<code>not defined</code> 和 <code>undefined</code> 以及<code>Null</code>这三兄弟。这三兄弟简直了，一个不小心就要出问题。</p>
+<p>别看这三兄弟不仅长的像而且意思也真是TM的“像”，可是他们之间还有很大的区别的。<br><a id="more"></a></p>
+<div class="tip"><br>    下面代码建议<code>f12</code>在控制台运行一下<br></div>
+
+<h2 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h2><blockquote>
+<p><code>undefined</code>类型只有一个值，即特殊的<code>undefined</code>。在使用var声明变量但未对其加以初始化时，这个变量的值就是<code>undefined</code>。</p>
+</blockquote>
+<p>熟悉么？没错就 <strong>js高程</strong> 的原话。讲道理读书还是重要，有些时候遇到问题快速解决可以google或是寻找技术博客什么的，实践很重要理论做支撑，需求完结后回到理论深究一下，才能真正的提高，所谓知其然知其所以然~又TMD扯远了。</p>
+<p>上面这段什么意思呢？就是说这个变量不是没有（未定义）而是没有初始化。听说马上七夕，讲个笑话，你有一天闲得蛋疼，在给未来的孩子取名字，好不容易想到一个好的，然而你连女朋友的没有。不要打我！来人护驾！</p>
+<h2 id="not-defined"><a href="#not-defined" class="headerlink" title="not defined"></a>not defined</h2><p>别看他和<code>undefined</code>长的挺像，就以为他们是失散多年的亲兄弟，其实不然，数据类型大家族之中根本就没有他，他只是浏览器经常报的一个错误信息而已。<br>当我们看到<code>VM316:1 Uncaught ReferenceError: XXX is not defined(…)</code>的时候其实就意味着这个叫“XXX”的家伙根本就不存在（未定义）。浏览器的意思是“您拨打的号码有误，请核实后再拨”。</p>
+<h2 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h2><p>哇~这个就厉害了。从逻辑上讲<code>Null</code>表示是一个空对象指针(也就是对象的名字用于存放地址)。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj1 =&#123;&#125;;</div><div class="line"><span class="keyword">var</span> obj2 = <span class="literal">null</span>;</div><div class="line"><span class="keyword">var</span> var1 = <span class="literal">undefined</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(obj1)); <span class="comment">// 返回object</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(obj2)); <span class="comment">// 返回object</span></div><div class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(var1)); <span class="comment">// 返回undefined</span></div></pre></td></tr></table></figure></p>
+<p>这个东西不是很好解释，就好比是物理老师告诉你，1.0和1是不一样的，考试的时候要是精确两位小数你答个1，就尴尬了。他们可以一样也可以不一样(严格意义上不一样)，<code>Null</code>是对象指针本身也是个对象，在内存中其实就是未来要存个地址但是还没想好要存哪个地址而已（多个变量可以指向同一个对象）。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pointerA = <span class="literal">null</span>;</div><div class="line"><span class="keyword">var</span> var2 = <span class="literal">undefined</span>;</div><div class="line"><span class="keyword">var</span> objA = &#123;</div><div class="line">    <span class="attr">biu</span>:<span class="string">"biu~biu~biu~"</span></div><div class="line">&#125;;</div><div class="line">pointerA = objA;</div><div class="line">var2 = pointerA;</div><div class="line">objA.heheda = <span class="string">"heheda"</span>;</div><div class="line"><span class="built_in">console</span>.log(pointerA === objA); <span class="comment">// 返回true （同一个地址引用）</span></div><div class="line"><span class="built_in">console</span>.log(var2 === objA); <span class="comment">// 返回true （同一个地址引用,undefined派生于null）</span></div></pre></td></tr></table></figure></p>
+<p>但是<code>undefined</code>他可就不是对象指针了，如果存实际的数据，可就真的存进去了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> variableA = <span class="literal">undefined</span>;</div><div class="line"><span class="keyword">var</span> variableB = <span class="number">3</span>;</div><div class="line">variableA = variableB;</div><div class="line">variableB = <span class="number">4</span>;</div><div class="line"><span class="built_in">console</span>.log(variableA === variableB); <span class="comment">// 返回false （不同的地址引用）</span></div></pre></td></tr></table></figure></p>
+<p>但是！他们在技术角度有TM的一样了，<code>undefined</code>派生于<code>null</code>并且都广义上代表“没有”：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> == <span class="literal">null</span>) <span class="comment">// 返回true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="literal">undefined</span> === <span class="literal">null</span>) <span class="comment">// 返回false</span></div></pre></td></tr></table></figure></p>
+<p>所以说<code>null</code>才是<code>undefined</code> 多年未见的亲哥哥呀。</p>
+<h2 id="null-amp-undefined-VS-not-defined"><a href="#null-amp-undefined-VS-not-defined" class="headerlink" title="null&amp;undefined VS not defined"></a>null&amp;undefined VS not defined</h2><p>好的他们三个的关系已经清楚了，只有<code>not defined</code>不是自家兄弟。对于这样的异教徒我们要怎么办？<br>假如有后端跟你对接口时说，当这个属性没有的时候他就真的没有了(<code>not defined</code>)！难道你还傻傻的：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (shashade.attr2) &#123; <span class="comment">// 此时已然报错</span></div><div class="line">    <span class="keyword">return</span> <span class="built_in">console</span>.log(shashade.attr2);</div><div class="line">&#125;<span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment">// 执行为空操作</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样写过的同学举一下手~<br>那么要怎么办呢？<code>typeof</code>笑而不语。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">attr1</span>:<span class="string">"attr1"</span></div><div class="line">&#125;</div><div class="line">test(obj);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">busha</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span>(busha.attr2) == <span class="literal">null</span>) &#123; <span class="comment">// 不会报错</span></div><div class="line">        <span class="keyword">return</span> <span class="built_in">console</span>.log(busha.attr2);</div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">console</span>.log(<span class="string">"为空操作已执行！"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<div class="tip"><br>    使用<code>typeof()</code>方法来判断处理为空的情况最为安全~<br></div>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;又一个需求完结了，最近好“闲”！总结一个好玩的东西，那就是&lt;code&gt;not defined&lt;/code&gt; 和 &lt;code&gt;undefined&lt;/code&gt; 以及&lt;code&gt;Null&lt;/code&gt;这三兄弟。这三兄弟简直了，一个不小心就要出问题。&lt;/p&gt;
+&lt;p&gt;别看这三兄弟不仅长的像而且意思也真是TM的“像”，可是他们之间还有很大的区别的。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://jazzysnail.github.io/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>调戏Vuelogo的正确姿势</title>
+    <link href="http://jazzysnail.github.io/2016/08/06/course-play-vue-logo/"/>
+    <id>http://jazzysnail.github.io/2016/08/06/course-play-vue-logo/</id>
+    <published>2016-08-06T08:40:16.000Z</published>
+    <updated>2017-02-27T14:41:06.177Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>“调戏”Vuelogo的教程来辣！</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="http://oaul0t4t1.bkt.clouddn.com/imgs%E8%B0%83%E6%88%8Fvue%E6%95%99%E7%A8%8B.png" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;“调戏”Vuelogo的教程来辣！&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="http://jazzysnail.github.io/tags/vue/"/>
+    
+      <category term="art" scheme="http://jazzysnail.github.io/tags/art/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>调戏v-logo</title>
+    <link href="http://jazzysnail.github.io/2016/08/03/play-vue-logo/"/>
+    <id>http://jazzysnail.github.io/2016/08/03/play-vue-logo/</id>
+    <published>2016-08-03T04:04:22.000Z</published>
+    <updated>2017-02-27T14:41:06.202Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><h4 id="有光影层次"><a href="#有光影层次" class="headerlink" title="有光影层次"></a>有光影层次</h4><p><img src="http://oaul0t4t1.bkt.clouddn.com/imgsv-logo-shadow.png" alt="vue-logo"><br><a id="more"></a></p>
+<h4 id="无光影层次"><a href="#无光影层次" class="headerlink" title="无光影层次"></a>无光影层次</h4><p><img src="http://oaul0t4t1.bkt.clouddn.com/imgs/v-logo.png" alt="vue-logo"></p>
+<p>代码敲累了调戏一下<code>v-logo</code>解解乏~ :-)</p>
+<div class="tip"><br>    等有时间了，上！教！程！<br></div>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;效果图&quot;&gt;&lt;a href=&quot;#效果图&quot; class=&quot;headerlink&quot; title=&quot;效果图&quot;&gt;&lt;/a&gt;效果图&lt;/h2&gt;&lt;h4 id=&quot;有光影层次&quot;&gt;&lt;a href=&quot;#有光影层次&quot; class=&quot;headerlink&quot; title=&quot;有光影层次&quot;&gt;&lt;/a&gt;有光影层次&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://oaul0t4t1.bkt.clouddn.com/imgsv-logo-shadow.png&quot; alt=&quot;vue-logo&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="http://jazzysnail.github.io/tags/vue/"/>
+    
+      <category term="art" scheme="http://jazzysnail.github.io/tags/art/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>npm-rimraf</title>
+    <link href="http://jazzysnail.github.io/2016/07/30/npm-rimraf/"/>
+    <id>http://jazzysnail.github.io/2016/07/30/npm-rimraf/</id>
+    <published>2016-07-30T08:05:14.000Z</published>
+    <updated>2017-02-27T14:41:06.198Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>A deep deletion module for node (like <code>rm -rf</code>)<br><a id="more"></a></p>
+</blockquote>
+<p>我想有不少像我一样遇到过这样的一种情况的人，直接上图：</p>
+<p><img src="http://oaul0t4t1.bkt.clouddn.com/imgs/SPTL.png" alt="sptl"></p>
+<p><strong>source path too long！</strong> </p>
+<p>这TM就尴尬了！源路径太长？什么情况，难道还删除不了了不成？有一句话是这样说的，你遇到的BUG，肯定也有人遇到过，于是马上google。探索的结果就是发现一个绝活npm包，<a href="https://www.npmjs.com/package/rimraf" target="_blank" rel="external">rimraf</a>。</p>
+<p>干掉<code>node_modules</code>仅仅需要三步:</p>
+<ol>
+<li><code>npm install -g rimraf</code></li>
+<li><code>cd xxx[include node_modules folder]</code></li>
+<li><code>rimraf node_modules</code></li>
+</ol>
+<p><strong> 强！无敌！ </strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;A deep deletion module for node (like &lt;code&gt;rm -rf&lt;/code&gt;)&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="npm" scheme="http://jazzysnail.github.io/tags/npm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>学习vue过程当中的易错点</title>
+    <link href="http://jazzysnail.github.io/2016/07/29/vue-basics/"/>
+    <id>http://jazzysnail.github.io/2016/07/29/vue-basics/</id>
+    <published>2016-07-29T02:54:09.000Z</published>
+    <updated>2017-02-27T14:41:06.210Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>这里不写vue教程，只归纳一些在学习/使用vue时的一些易错点，教程请移步官方文档<a href="http://vuejs.org.cn/guide/" target="_blank" rel="external">教程</a>。</p>
+<a id="more"></a>
+<h2 id="data-amp-computed"><a href="#data-amp-computed" class="headerlink" title="data &amp; computed"></a>data &amp; computed</h2><p>这个地方我认为在使用的时候经常会出错，类似Es6的<code>Let</code>&amp;<code>Const</code>。</p>
+<h4 id="data"><a href="#data" class="headerlink" title="data"></a>data</h4><p><code>data</code>用于存放vue实例属性，通常他们是“不变”的，只根据<strong>view</strong>的变化而变化，或者是主动的更新<strong>model</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">    <span class="attr">a</span>: <span class="number">1</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h4><p><code>computed</code>用于存放计算属性，通常人们希望他们根据关联属性的变化而计算自身属性的值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">    <span class="attr">a</span>: <span class="number">1</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">computed</span>: &#123;</div><div class="line">    <span class="attr">b</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="number">2</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="computed的getter-amp-setter"><a href="#computed的getter-amp-setter" class="headerlink" title="computed的getter &amp; setter"></a>computed的getter &amp; setter</h4><p><code>getter</code>vue计算属性默认getter。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="comment">// 等同于上面的用法</span></div><div class="line">computed: &#123;</div><div class="line">  <span class="attr">b</span>: &#123;</div><div class="line">    <span class="comment">// getter</span></div><div class="line">    get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="number">2</span></div><div class="line">    &#125;,</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// ...</span></div></pre></td></tr></table></figure>
+<p><code>setter</code>必要时vue提供<code>setter</code>方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ...</span></div><div class="line">computed: &#123;</div><div class="line">  <span class="attr">b</span>: &#123;</div><div class="line">    <span class="comment">// getter</span></div><div class="line">    get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="number">2</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// setter</span></div><div class="line">    set: <span class="function"><span class="keyword">function</span> (<span class="params">newValue</span>) </span>&#123;</div><div class="line">      <span class="keyword">this</span>.a = newValue - <span class="number">2</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// ...</span></div></pre></td></tr></table></figure>
+<h2 id="v-if-amp-v-show"><a href="#v-if-amp-v-show" class="headerlink" title="v-if &amp; v-show"></a>v-if &amp; v-show</h2><p>他们兄弟两个都是用于条件显示的。他们之间的区别就类似于css的<code>display: none ;</code>和<code>visibility: hidden;</code>对布局影响的区别。</p>
+<p><code>v-if</code>选择最终是否渲染进模板的Dom中，如果Value为false，那么内容将不会被渲染进Dom。</p>
+<p><code>v-show</code>会渲染进Dom但是选择是否显示，通过切换css的<code>display:</code>属性实现。</p>
+<blockquote>
+<p><strong>举个栗子~</strong></p>
+</blockquote>
+<h4 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h4><p>当一个页面出现权限问题时，你可能不希望页面上展示本不属于该用户权限下应该看到的内容。甚至是Dom都不应该出现，这时就应当使用<code>v-if</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tpl-admin"</span> <span class="attr">v-if</span>=<span class="string">"getPermissions"</span>&gt;</span>管理员可以看到<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tpl-user"</span> <span class="attr">v-if</span>=<span class="string">"!getPermissions"</span>&gt;</span>用户可以看到<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#app'</span>,</div><div class="line">  <span class="attr">methods</span>: &#123;</div><div class="line">    <span class="attr">getPermissions</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="comment">// 假设已经获取到相关用户信息 1:admin 0:user</span></div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.user.userInfo == <span class="number">1</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a>v-show</h4><p>另一种情况是，有一个列表，用户可以对这些列表项进行删除，但是你不希望用户从中间开始删除，而是从最下面开始删除。这时应当使用<code>v-show</code>，因为其他列表项其实也是带有删除这个按钮的，只是他被隐藏起来了。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123; item.text &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-show</span>=<span class="string">"showDelBtn($index)"</span> <span class="attr">v-on:click</span>=<span class="string">"removeItem"</span>&gt;</span>X<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#app'</span>,</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">    <span class="attr">list</span>: [</div><div class="line">      &#123; <span class="attr">text</span>: <span class="string">'item1'</span> &#125;,</div><div class="line">      &#123; <span class="attr">text</span>: <span class="string">'item2'</span> &#125;,</div><div class="line">      &#123; <span class="attr">text</span>: <span class="string">'item3'</span> &#125;</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">methods</span>: &#123;</div><div class="line">    <span class="attr">showDelBtn</span>: <span class="function"><span class="keyword">function</span>(<span class="params">index</span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.lists.length == index + <span class="number">1</span> &amp;&amp; <span class="keyword">this</span>.lists.length != <span class="number">1</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">removeItem</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">this</span>.list.pop();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="v-if-VS-v-show"><a href="#v-if-VS-v-show" class="headerlink" title="v-if VS v-show"></a>v-if <strong>VS</strong> v-show</h4><p>在切换 <code>v-if</code> 块时，Vue.js 有一个局部编译/卸载过程，因为 <code>v-if</code> 之中的模板也可能包括数据绑定或子组件。<code>v-if</code> 是真实的条件渲染，因为它会确保条件块在切换当中合适地销毁与重建条件块内的事件监听器和子组件。</p>
+<p><code>v-if</code> 也是惰性的：如果在初始渲染时条件为假，则什么也不做——在条件第一次变为真时才开始局部编译（编译会被缓存起来）。  </p>
+<p>相比之下，<code>v-show</code> 简单得多——元素始终被编译并保留，只是简单地基于 CSS 切换。</p>
+<p>一般来说，v-if 有更高的切换消耗而 <code>v-show</code> 有更高的初始渲染消耗。因此，如果需要频繁切换 <code>v-show</code> 较好，如果在运行时条件不大可能改变 <code>v-if</code> 较好。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;序&quot;&gt;&lt;a href=&quot;#序&quot; class=&quot;headerlink&quot; title=&quot;序&quot;&gt;&lt;/a&gt;序&lt;/h2&gt;&lt;p&gt;这里不写vue教程，只归纳一些在学习/使用vue时的一些易错点，教程请移步官方文档&lt;a href=&quot;http://vuejs.org.cn/guide/&quot;&gt;教程&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="http://jazzysnail.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vue从入门到放弃？</title>
+    <link href="http://jazzysnail.github.io/2016/07/20/hello-vue/"/>
+    <id>http://jazzysnail.github.io/2016/07/20/hello-vue/</id>
+    <published>2016-07-20T03:05:33.000Z</published>
+    <updated>2017-02-27T14:41:06.184Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>架构是对客观不足的妥协，规范是对主观不足的妥协。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="初次见面"><a href="#初次见面" class="headerlink" title="初次见面"></a>初次见面</h2><p>那时我还没有毕业，别人还称我为”同学”。第一次接触vue是我在丹露网实习时，大师兄推荐我学习的，当时还给我演示一个小demo，下面输入框输入什么，上面就同步跟着显示出来了。当时看起来不难也觉得似乎没意义不大（才疏学浅），故没有很在意。</p>
+<h2 id="Model–view–viewmodel"><a href="#Model–view–viewmodel" class="headerlink" title="Model–view–viewmodel"></a>Model–view–viewmodel</h2><p>后来大师兄给我说不理解很正常，又告诉我说去google一下mvvm。当然还是乖乖的先去baidu了一下，找到了一篇2014年三月<a href="http://www.cnblogs.com/indream/p/3602348.html" target="_blank" rel="external">博客园Indream Luo的一篇博文</a>（可能我会去整理一下转载过来）大致是在讲设计模式的一个进化过程（其实也就是分层进化），建议戳进去看看。</p>
+<p>接下来单独来看mvvm（Model–view–viewmodel），其实也还是出于分离视图层的目的，请看下图：</p>
+<p><img src="http://oaul0t4t1.bkt.clouddn.com/imgs/IC564167.png" alt="生命周期图示"></p>
+<p>大体上还是三层，就是<strong> MVC </strong>上<code>Controller</code>换成<code>viewmodel</code>或者<strong> MVP </strong>上<code>Presenter</code>换成<code>viewmodel</code>。<br><strong> MVC </strong>相比，断开了<code>View</code>与<code>Model</code>的直接联系，将<code>View</code>与<code>viewmodel</code>进行双向绑定（data-binding，这里既是与MVP的区别），<code>viewmodel</code>通过检测数据的变化或者视图的变化来相应的做出视图更新或者数据更新。对于逻辑开发者来说只需要关心数据（model），对于视图开发者来说只需要关心视图（View）了。</p>
+<p><img src="http://oaul0t4t1.bkt.clouddn.com/imgs/mvvm.png" alt="MVVM"></p>
+<p><strong>Vue</strong>在mvvm中扮演的正是<strong> ViewModel </strong>这个角色。</p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>之所以前端的发展会引入mvvm这种在桌面软件开发中常用的模式，是因为他们都不是用来看的而是用来使用的，使用都是需要有<strong> user interface </strong>的。既然有视图的存在，那么视图与逻辑或者数据他们必须分离。引用<strong> Indream Luo </strong> 的一句话：</p>
+<blockquote>
+<p>架构是对客观不足的妥协，规范是对主观不足的妥协。</p>
+</blockquote>
+<p>作为开发者面对技术的革新要勇于拥抱，面对客观的不足我们要勇于创新！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;架构是对客观不足的妥协，规范是对主观不足的妥协。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="http://jazzysnail.github.io/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于闭包之我见</title>
+    <link href="http://jazzysnail.github.io/2016/07/18/My-understanding-on-closures/"/>
+    <id>http://jazzysnail.github.io/2016/07/18/My-understanding-on-closures/</id>
+    <published>2016-07-18T13:48:04.000Z</published>
+    <updated>2017-02-27T14:41:06.174Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p><a href="http://baike.baidu.com/view/648413.htm#4" target="_blank" rel="external">闭包</a>是一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。</p>
+</blockquote>
+<a id="more"></a>
+<p>&#160; &#160; &#160; &#160;这他么的什么鬼？到底什么是闭包？<br>&#160; &#160; &#160; &#160;接触前端不久，我也不太懂闭包，但感觉貌似好腻害研究一哈，特别感谢大师兄的栗子！（以下理解纯属个人理解，不一定正确和准确，欢迎讨论）</p>
+<p>研究开始…</p>
+<p>&#160; &#160; &#160; &#160;闭包，我的理解就是一个利用函数作用域，创建了一个中间变量表达式，内部代码执行依赖闭包中的变量，而内部又被外部引用。因此只要内部函数需要的资源都不会被回收，该闭包中的变量也不会被回收。<br>&#160; &#160; &#160; &#160;也就是在函数外套了个罩子，这个罩子就是闭包。这个罩子把外部和内部隔离开，罩子里的变量可以被内部调用且又不能被外部调用，而且还不能被回收掉！下面是一个闭包的栗子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> c = (<span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        alert(++i);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> b;</div><div class="line">&#125;);</div><div class="line">onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    c();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&#160; &#160; &#160; &#160;函数b嵌套在函数a中，函数a返回函数b，变量c引用函数a。<br>&#160; &#160; &#160; &#160;当执行c()时由于函数a返回函数b所以实际上函数指向b，b的执行依赖函数a中的变量i，所以当函数执行过后a中的变量i的值不会被回收。当再次触发点击事件时会输出++i。喜闻乐见的反例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> c = (<span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</div><div class="line"></div><div class="line">    (<span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        alert(++i);</div><div class="line">    &#125;)();</div><div class="line">    <span class="comment">// return b;</span></div><div class="line">&#125;);</div><div class="line">onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    c();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&#160; &#160; &#160; &#160;假如我们不返回函数b而是直接执行函数b，会是什么情况呢？<br>&#160; &#160; &#160; &#160;实际上当函数执行时函数直接指向a，a内部函数b直接执行并没有作为返回值返回给外部，这时内部函数b与外部函数完全没有什么关系（自娱自乐）因此函数a中的资源（变量i）就被回收了，所以当再次触发点击事件的时候打印出的还是1，而且将永远是1，变量i并没有被加上去。</p>
+<p>到底有什么卵用？<br><strong>保持一个变量常住内存，保护函数内部变量不被回收！</strong>下面是一个完整的栗子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha1"</span>&gt;</span>这是第1个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha2"</span>&gt;</span>这是第2个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha3"</span>&gt;</span>这是第3个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha4"</span>&gt;</span>这是第4个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha5"</span>&gt;</span>这是第5个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha6"</span>&gt;</span>这是第6个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha7"</span>&gt;</span>这是第7个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha8"</span>&gt;</span>这是第8个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha9"</span>&gt;</span>这是第9个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"haha10"</span>&gt;</span>这是第10个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</div><div class="line"></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"#haha"</span> + i).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"第一个方式"</span>, i);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">"#haha"</span> + i).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"第二个方式"</span>, i);</div><div class="line">        &#125;);</div><div class="line">    &#125;)(i);</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>建议复制下来执行一下</strong><br>代码什么意思呢？<br>&#160; &#160; &#160; &#160;给这十个div都绑定一个点击事件，来控制台打印div的索引值（就等于闭包函数的i值）。<br>&#160; &#160; &#160; &#160;方式一、没有使用闭包，只是单纯的给每一个div绑定了点击事件，内部方法打印的i即为全局变量i（即为for循环后留下的变量i，值为11）。<br>&#160; &#160; &#160; &#160;方式二、使用了闭包，每当循环执行一次就给当前div绑定点击事件时同时创建一个闭包，闭包里的变量i即为创建时当前i的值，当相应的div触发点击事件时打印出的即为相应绑定时i的值。<br>&#160; &#160; &#160; &#160;这样闭包就很好的保护了内部函数所使用的是当时的i而不是全局下的i。是不是感觉吊吊的？？</p>
+<p><strong>总结：</strong><br> <div class="tip"><br>一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。<br>回过头来看这句话应该理解了不少，虽然还是有点模糊，但起码会用了不是么？<strong>保持一个变量常住内存，保护函数内部变量不被回收也不被覆盖。</strong><br> </div></p>
+<p>写到这里应该可以简单的理解javascript的闭包了~</p>
+<p>由csdn《<a href="http://blog.csdn.net/jazzysnail/article/details/49301283" target="_blank" rel="external">关于闭包之我见</a>》 2015-10-21 10:45 转移至此</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://baike.baidu.com/view/648413.htm#4&quot;&gt;闭包&lt;/a&gt;是一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://jazzysnail.github.io/tags/javascript/"/>
+    
+      <category term="closure" scheme="http://jazzysnail.github.io/tags/closure/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://jazzysnail.github.io/2016/07/13/hello-blog/"/>
+    <id>http://jazzysnail.github.io/2016/07/13/hello-blog/</id>
+    <published>2016-07-13T13:48:04.000Z</published>
+    <updated>2017-02-27T14:41:06.180Z</updated>
+    
+    <content type="html"><![CDATA[<p>&#160; &#160; &#160; &#160;依照惯例还是先来一个”hello world”。使用hexo建立了自己的blog，也许就开始写博文了罢，或许是笔记？心得？灵感？总之就是慢慢写点东西出来。<br><a id="more"></a><br>&#160; &#160; &#160; &#160;博客目前部署在github上面，下面是地址，欢迎来看看。</p>
+<ul>
+<li>github: <a href="https://github.com/jazzysnail" target="_blank" rel="external">jazzysnail</a></li>
+<li>blog: <a href="http://jazzysnail.github.io/">leon’s blog</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;#160; &amp;#160; &amp;#160; &amp;#160;依照惯例还是先来一个”hello world”。使用hexo建立了自己的blog，也许就开始写博文了罢，或许是笔记？心得？灵感？总之就是慢慢写点东西出来。&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

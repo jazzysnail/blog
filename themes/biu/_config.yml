@@ -1,0 +1,25 @@
+menu:
+    Blog: /
+    Archive: /archives/
+    GitHub: https://github.com/jazzysnail
+    Workshop: # [your workshop address]
+    # add more...
+favicon: /favicon.png
+logo: /favicon.png
+
+# Comment
+# e.g disqus:
+disqus: # [your disqus ID]
+duoshuo: jazzysnail
+
+# Analytics
+# google-analytics:
+ga: UA-65933410-1
+
+# Copyright Infomation
+startyear: 2016
+
+# Font CDN
+#true : use google fonts api, not stable for chinese visitor sometimes, caused by force majeure factor
+#false: use useso fonts api instead of google's, great response speed for chinese visitor
+googlefonts: true

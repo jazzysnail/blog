@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>leon&#39;s blog</title>
   
-  <link href="/atom.xml" rel="self"/>
+  <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://jazzysnail.github.io/"/>
   <updated>2017-03-31T15:42:03.000Z</updated>

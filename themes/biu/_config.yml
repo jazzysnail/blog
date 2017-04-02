@@ -1,11 +1,11 @@
 menu:
-    Blog: /
+    Blog: /blog/
     Archive: /archives/
     GitHub: https://github.com/jazzysnail
     Workshop: # [your workshop address]
     # add more...
-favicon: /favicon.png
-logo: /favicon.png
+favicon: /blog/favicon.png
+logo: /blog/favicon.png
 
 # Comment
 # e.g disqus:

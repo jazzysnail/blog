@@ -1,13 +1,12 @@
 {
-  "name": "bisheng-example",
+  "name": "mineblog",
   "scripts": {
     "start": "bisheng start",
     "deploy": "bisheng gh-pages --ssr"
   },
   "dependencies": {
-    "bisheng": "^0.23.2",
-    "bisheng-theme-one": "^0.2.14"
+    "bisheng": "^0.23.2"
   },
-  "version": "1.0.14",
+  "version": "0.0.0",
   "private": true
 }

@@ -72,7 +72,7 @@ exports.default = function (props) {
   });
   return _react2.default.createElement(
     _reactDocumentTitle2.default,
-    { title: 'BiSheng Theme One' },
+    { title: 'leon\'s blog' },
     _react2.default.createElement(
       _Layout2.default,
       props,

@@ -1,2 +1,0 @@
-## My Blog
-Happy writing~

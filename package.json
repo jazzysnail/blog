@@ -5,8 +5,10 @@
     "deploy": "bisheng gh-pages --ssr"
   },
   "dependencies": {
-    "bisheng": "^0.23.2"
+    "antd": "/usr/local2.10.1",
+    "bisheng": "^0.23.2",
+    "rc-scroll-anim": "/usr/local1.0.3"
   },
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true
 }

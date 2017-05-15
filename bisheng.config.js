@@ -2,26 +2,31 @@ const path = require('path');
 
 module.exports = {
   exclude: /should-be-ignore/,
-  theme: './theme',
-  htmlTemplate: './theme/static/template.html',
-
+  theme: './bisheng-theme-biu',
+  htmlTemplate: './bisheng-theme-biu/static/template.html',
   
   themeConfig: {
     home: '/',
-    sitename: "mineblog",
-    tagline: 'mineblog with bisheng',
-    navigation: [{
-      title: 'archive',
-      link: '/archive'
+    hue: 'candy',
+    title: 'jazzysnail',
+    
+    nav: [{
+      label: 'Journal',
+      uri: 'http://jazzysnail.github.io/blog'
     },{
-      title: 'github',
-      link: '/github'
-    }],
-    footer: 'Page building...',
-    hideBisheng: true,
-    github: 'https://github.com/benjycui/bisheng',
+      label: 'Art',
+      uri: 'http://jazzysnail.github.io/blog'
+    },{
+      label: 'JS',
+      uri: 'http://jazzysnail.github.io/blog'
+    },{
+      label: 'About',
+      uri: 'http://jazzysnail.github.io/blog'
+    },{
+      label: 'Findme',
+      uri: 'http://jazzysnail.github.io/blog'
+    }]
   },
 
-
   root: '/blog/'
-};
+}

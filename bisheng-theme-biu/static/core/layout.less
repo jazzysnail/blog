@@ -1,0 +1,76 @@
+@import url(../hue.less);
+
+.layout {
+  .paper {
+    width: 960px;
+    margin: 50px auto 80px auto;
+    transition: box-shadow .5s cubic-bezier(.215,.61,.355,1);
+    transition: transform .5s cubic-bezier(.215,.61,.355,1);
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: rgba(100, 100, 100, 0.1) 0 0 10px 0;
+    }
+    header.layout-header {
+      height: 40px;
+      line-height: 40px;
+      padding: 0 45px;
+      border-bottom: 1px solid #ddd;
+      zoom: 1;
+      &:before,
+      &:after {
+        content: " ";
+        display: table;
+      }
+      &:after {
+        clear: both;
+        visibility: hidden;
+        font-size: 0;
+        height: 0;
+      }
+      .title {
+        display: inline-block;
+        width: 300px;
+        text-align: center;
+      }
+      .nav {
+        float: right;
+        ul {
+          margin: 0;
+          padding: 0;
+          li {
+            display: inline-block;
+            padding: 0 20px;
+            a {
+              color: #666;
+              &:hover {
+                color: @blue;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .layout-content {
+      padding: 30px 45px 0 45px;
+    }
+
+    .layout-footer {
+      padding: 20px 45px 20px 45px;
+      text-align: center;
+      .previous {
+        float: left;
+      }
+      span {
+        color: #ccc;
+      }
+      .next {
+        float: right;
+      }
+    }
+  }
+
+  footer {
+    text-align: center;
+  }
+}

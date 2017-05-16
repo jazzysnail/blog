@@ -1,12 +1,16 @@
 ---
 title: 测试文章！
-publishDate: 2017-05-16
+date: 2017-05-16
+cover: https://cdn.dribbble.com/users/37624/screenshots/3366123/404_1x.jpg
+discription: 一个关于测试的故事，你不要进来看看吗？
 tags: 
   - test
+  - test2
 ---
+
 ## 配图测试
 
-![img test](https://cdn.dribbble.com/users/37624/screenshots/3366123/404_1x.jpg)
+![img test](http://img.zcool.cn/community/01633257b5e67e0000012e7e24000e.png)
 
 <p class="img-text">测试配图文字</p>
 
@@ -30,10 +34,21 @@ tags:
 
 ## 语法测试
 
+### 三级标题
+
 > [引用测试] 凡事总须研究，才会明白。古来时常吃人，我也还记得，可是不甚清楚。我翻开历史一查，这历史没有年代，歪歪斜斜的每叶上都写着“ *仁义道德* ”几个字。我横竖睡不着，仔细看了半夜，才从字缝里看出字来，满本都写着两个字是“ **吃人** ”！
 
 ---
 
-> 正数为变淡 `tint` ，负数为加深 `shade`。
+* 阿萨德科技
+* 阿萨德较好的
+* 阿萨帝撒多
+
+
+1. 阿萨德高达
+2. 奥术大师多
+3. 阿萨帝阿萨帝
+
+正数为变淡 `tint` ，负数为加深 `shade`。
 
 [欢迎订阅](http://jazzysnail.github.io/blog)

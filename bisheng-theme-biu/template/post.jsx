@@ -12,7 +12,7 @@ export default function (props) {
   const { toReactComponent } = props.utils;
   const pageData = props.pageData;
 
-  console.log(pageData)
+  console.log(pageData.discription)
 
   let Content = function() {
     return React.createElement(
@@ -21,8 +21,21 @@ export default function (props) {
       toReactComponent(pageData.content)
     )
   }
+
+  let Tags = pageData.meta.tags.map((val,index) => {
+    return <a href="/" key={val + index}>{val}</a>
+  });
+
   return (
     <Layout themeConfig={props.themeConfig}>
+
+      <div className="post-info">
+        <i className="mineicon mineicon-clock"></i>
+        <time>{pageData.meta.date.slice(0, 10)}</time>
+        <i className="mineicon mineicon-sale"></i>
+        <span className="tags">{Tags}</span>
+      </div>
+
       <h1>{pageData.meta.title}</h1>
       <Content />
       <div className="post-footer">

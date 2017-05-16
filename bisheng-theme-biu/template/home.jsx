@@ -8,6 +8,7 @@ import { Link, Element } from 'rc-scroll-anim';
 
 
 export default function (props) {
+  console.log(props)
   return (
     <p>hello world!</p>
   )

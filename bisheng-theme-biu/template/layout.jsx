@@ -52,7 +52,7 @@ const Footer = function(props) {
   return (
     <footer>
       <span className="linkup">{Linkup}</span>
-      <p>{props.startyear || Year}-{Year} leon’s blog, with <a href="https://github.com/benjycui/bisheng">Bisheng</a>！</p>
+      <p>{props.startyear || Year}-{Year} leon’s blog Powered by <a href="https://github.com/benjycui/bisheng">Bisheng</a></p>
     </footer>
   )
 }

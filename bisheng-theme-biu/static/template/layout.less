@@ -2,13 +2,15 @@
 
 .layout {
   .paper {
+    background: #fff;
     width: 960px;
     margin: 50px auto 80px auto;
     transition: box-shadow .5s cubic-bezier(.215,.61,.355,1);
     transition: transform .5s cubic-bezier(.215,.61,.355,1);
     &:hover {
       transform: translateY(-2px);
-      box-shadow: rgba(100, 100, 100, 0.1) 0 0 10px 0;
+      // box-shadow: rgba(100, 100, 100, 0.1) 0 0 10px 0;
+      box-shadow: rgba(0, 0, 0, 0.1) 0 0 2px 0, 2px 3px 5px 0px rgba(0,0,0,0.1);
     }
     header.layout-header {
       height: 40px;

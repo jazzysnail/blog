@@ -20,7 +20,10 @@ module.exports = {
   routes: [{
     path: '/',
     component: './template/home'
-  }, {
+  },{
+    path: '/archive',
+    component: './template/archive'
+  },{
     path: '/posts/:post',
     dataPath: '/:post',
     component: './template/post'

@@ -36,9 +36,21 @@ const Footer = function(props) {
 
   const Year = new Date().getFullYear();
 
+  const Linkup = props.linkup.map(val => {
+    return (
+      <a
+        href={val.link}
+        target="_blank"
+        key={val.link + val.icon}>
+        <i className={'mineicon mineicon-' + val.icon}></i>
+      </a>
+    )
+  });
+
   return (
     <footer>
-      <p>{props.startyear || Year} - {Year} leon’s blog, with <a href="https://github.com/benjycui/bisheng">Bisheng</a>！</p>
+      <span className="linkup">{Linkup}</span>
+      <p>{props.startyear || Year}-{Year} leon’s blog, with <a href="https://github.com/benjycui/bisheng">Bisheng</a>！</p>
     </footer>
   )
 }
@@ -55,7 +67,10 @@ export default function (props) {
           {props.children}
         </Content>
       </div>
-      <Footer startyear={props.themeConfig.startyear}/>
+      <Footer
+        startyear={props.themeConfig.startyear}
+        linkup={props.themeConfig.linkup}
+      />
     </div>
   )
 }

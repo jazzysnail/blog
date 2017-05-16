@@ -1,2 +1,2 @@
-import './core/index.less'
-import './template/index.less'
+import './core/index.less';
+import './template/index.less';

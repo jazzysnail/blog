@@ -25,6 +25,13 @@ module.exports = {
     },{
       label: 'Findme',
       uri: 'http://jazzysnail.github.io/blog'
+    }],
+    linkup: [{
+      link: 'http://github.com/jazzysnail',
+      icon: 'github'
+    },{
+      link: 'http://2017.zcool.com.cn/u/2061043',
+      icon: 'zcool'
     }]
   },
 

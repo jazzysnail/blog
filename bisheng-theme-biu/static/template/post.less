@@ -1,0 +1,47 @@
+@import url(../style.less);
+
+.entry-content{
+  // 一级标题
+  h1 {
+    font-size: 20px;
+  }
+
+  // 二级标题
+  h2 {
+    font-size: 16px;
+  }
+
+  // 三级标题
+  h3 {
+    font-size: 14px;
+  }
+
+  // 配图
+  img {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+  }
+  // 引用
+  blockquote {
+    margin: 0;
+    padding-left: 15px;
+    border-left: 2px solid @hue;
+    background: #f8f8f8;
+  }
+  // 切割线
+  hr {
+    display: block;
+    border: none;
+    margin: 7px 0;
+    height: 1px;
+    background: #ccc;
+  }
+  // 行内代码字符
+  p code {
+    background: tint(#f92672, 95%);
+    padding: 3px;
+    border-radius: 6px;
+    color: shade(#f92672, 20%);
+  }
+}

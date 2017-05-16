@@ -9,7 +9,7 @@ module.exports = {
     home: '/',
     hue: 'candy',
     title: 'jazzysnail',
-    
+    startyear: '2016',
     nav: [{
       label: 'Journal',
       uri: 'http://jazzysnail.github.io/blog'

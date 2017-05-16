@@ -2,11 +2,9 @@ import React from 'react';
 
 // style
 import '../static/style';
-import 'antd/lib/grid/style';
 
 // components
 import { Link, Element } from 'rc-scroll-anim';
-import { Row, Col, Layout} from 'antd';
 
 // header
 const Header = function(props) {
@@ -43,9 +41,12 @@ const Content = function(props) {
 
 // footer
 const Footer = function(props) {
+
+  let Year = new Date().getFullYear();
+
   return (
-    <footer className="layout-footer">
-      <p>2017 - 2017 leon’s blog, with <a href="https://github.com/benjycui/bisheng">Bisheng</a>！</p>
+    <footer>
+      <p>{props.startyear || Year} - {Year} leon’s blog, with <a href="https://github.com/benjycui/bisheng">Bisheng</a>！</p>
     </footer>
   )
 }
@@ -67,7 +68,7 @@ export default function (props) {
           <a className="next">next post →</a>
         </div>
       </div>
-      <Footer />
+      <Footer startyear={props.themeConfig.startyear}/>
     </div>
   )
 }

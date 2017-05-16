@@ -6,7 +6,7 @@ import '../static/style';
 // components
 import Layout from './layout';
 
-exports.default = function (props) {
+export default function (props) {
 
   const postName = props.router.params.post;
   const { toReactComponent } = props.utils;
@@ -25,6 +25,11 @@ exports.default = function (props) {
     <Layout themeConfig={props.themeConfig}>
       <h1>{pageData.meta.title}</h1>
       <Content />
+      <div className="post-footer">
+        <a className="previous">← previous post</a>
+        <span>⌘+e back to news  ⌘+enter post comment</span>
+        <a className="next">next post →</a>
+      </div>
     </Layout>
   )
 }

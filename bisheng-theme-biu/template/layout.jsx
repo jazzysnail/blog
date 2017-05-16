@@ -1,16 +1,10 @@
 import React from 'react';
-
-// style
 import '../static/style';
-
-// components
 import { Link, Element } from 'rc-scroll-anim';
 
-// header
 const Header = function(props) {
 
-  // navigation
-  let navList = props.nav.map(val => {
+  const navList = props.nav.map(val => {
     return (
       <li key={val.label + val.uri}>
         <a href={val.uri}>{val.label}</a>
@@ -30,7 +24,6 @@ const Header = function(props) {
   )
 }
 
-// content
 const Content = function(props) {
   return (
     <div className="layout-content">
@@ -39,10 +32,9 @@ const Content = function(props) {
   )
 }
 
-// footer
 const Footer = function(props) {
 
-  let Year = new Date().getFullYear();
+  const Year = new Date().getFullYear();
 
   return (
     <footer>
@@ -62,11 +54,6 @@ export default function (props) {
         <Content>
           {props.children}
         </Content>
-        <div className="layout-footer">
-          <a className="previous">← previous post</a>
-          <span>⌘+e back to news  ⌘+enter post comment</span>
-          <a className="next">next post →</a>
-        </div>
       </div>
       <Footer startyear={props.themeConfig.startyear}/>
     </div>

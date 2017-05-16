@@ -7,7 +7,7 @@ import '../static/style';
 import { Link, Element } from 'rc-scroll-anim';
 
 
-exports.default = function (props) {
+export default function (props) {
   return (
     <p>hello world!</p>
   )

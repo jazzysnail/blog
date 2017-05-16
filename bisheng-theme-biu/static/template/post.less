@@ -45,3 +45,28 @@
     color: shade(#f92672, 20%);
   }
 }
+
+.post-footer {
+  padding: 20px 0;
+  text-align: center;
+  a {
+    color: #555;
+    cursor: pointer;
+    transition: transform .5s cubic-bezier(.215,.61,.355,1);
+    &.previous {
+      float: left;
+      &:hover {
+        transform: translateX(2px);
+      }
+    }
+    &.next {
+      float: right;
+      &:hover {
+        transform: translateX(-2px);
+      }
+    }
+  }
+  span {
+    color: #ccc;
+  }
+}

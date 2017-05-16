@@ -13,8 +13,7 @@
     header.layout-header {
       height: 40px;
       line-height: 40px;
-      padding: 0 45px;
-      border-bottom: 1px solid #ccc;
+      padding: 20px 45px 0 45px;
       zoom: 1;
       &:before,
       &:after {
@@ -27,23 +26,26 @@
         font-size: 0;
         height: 0;
       }
-      .title {
-        display: inline-block;
-        width: 300px;
-        text-align: center;
-      }
-      .nav {
-        float: right;
-        ul {
-          margin: 0;
-          padding: 0;
-          li {
-            display: inline-block;
-            padding: 0 20px;
-            a {
-              color: #666;
-              &:hover {
-                color: @hue;
+      .header-content {
+        border-bottom: 1px solid #ccc;
+        .title {
+          display: inline-block;
+          width: 300px;
+          text-align: center;
+        }
+        .nav {
+          float: right;
+          ul {
+            margin: 0;
+            padding: 0;
+            li {
+              display: inline-block;
+              padding: 0 20px;
+              a {
+                color: #666;
+                &:hover {
+                  color: @hue;
+                }
               }
             }
           }

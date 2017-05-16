@@ -14,11 +14,13 @@ const Header = function(props) {
 
   return (
     <header className="layout-header">
-      <div className="title">
-        <span>{props.title}</span>
-      </div>
-      <div className="nav">
-        <ul>{navList}</ul>
+      <div className="header-content">
+        <div className="title">
+          <span>{props.title}</span>
+        </div>
+        <div className="nav">
+          <ul>{navList}</ul>
+        </div>
       </div>
     </header>
   )

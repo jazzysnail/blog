@@ -1,5 +1,6 @@
 import React from 'react';
 import '../static/style';
+const Rlink = require('bisheng/router').Link;
 import { Link, Element } from 'rc-scroll-anim';
 
 const Header = function(props) {
@@ -7,7 +8,7 @@ const Header = function(props) {
   const navList = props.nav.map(val => {
     return (
       <li key={val.label + val.uri}>
-        <a href={val.uri}>{val.label}</a>
+        <Rlink to={val.uri}>{val.label}</Rlink>
       </li>
     )
   });
@@ -16,7 +17,9 @@ const Header = function(props) {
     <header className="layout-header">
       <div className="header-content">
         <div className="title">
-          <span>{props.title}</span>
+          <Rlink to="/">
+            {props.title}
+          </Rlink>
         </div>
         <div className="nav">
           <ul>{navList}</ul>

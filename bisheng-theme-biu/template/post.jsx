@@ -12,12 +12,9 @@ export default function (props) {
   const { toReactComponent } = props.utils;
   const pageData = props.pageData;
 
-  console.log(pageData.discription)
-
   let Content = function() {
     return React.createElement(
-      'div',
-      { className: 'entry-content' },
+      'div',      { className: 'entry-content' },
       toReactComponent(pageData.content)
     )
   }

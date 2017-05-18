@@ -4,14 +4,14 @@ const path = require('path');
 module.exports = {
   lazyLoad: false,
 
-  // pick: {
-  //   posts: function posts(markdownData) {
-  //     return {
-  //       meta: markdownData.meta,
-  //       description: markdownData.description
-  //     };
-  //   }
-  // },
+  pick: {
+    posts: function posts(markdownData) {
+      return {
+        meta: markdownData.meta,
+        description: markdownData.description
+      };
+    }
+  },
 
   plugins: [
     path.join(__dirname, '..', 'node_modules', 'bisheng-plugin-description')
@@ -19,9 +19,6 @@ module.exports = {
 
   routes: [{
     path: '/',
-    component: './template/home'
-  },{
-    path: '/archive',
     component: './template/archive'
   },{
     path: '/posts/:post',

@@ -12,19 +12,19 @@ module.exports = {
     startyear: '2016',
     nav: [{
       label: 'Journal',
-      uri: 'http://jazzysnail.github.io/blog'
+      uri: '/'
     },{
       label: 'Art',
-      uri: 'http://jazzysnail.github.io/blog'
+      uri: '/'
     },{
       label: 'JS',
-      uri: 'http://jazzysnail.github.io/blog'
+      uri: '/'
     },{
       label: 'About',
-      uri: 'http://jazzysnail.github.io/blog'
+      uri: '/'
     },{
       label: 'Findme',
-      uri: 'http://jazzysnail.github.io/blog'
+      uri: '/'
     }],
     linkup: [{
       link: 'http://github.com/jazzysnail',

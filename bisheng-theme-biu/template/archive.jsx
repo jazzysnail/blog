@@ -1,22 +1,47 @@
 import React from 'react';
 
-// style
-import '../static/style';
-
 // components
 import Layout from './layout';
-
+const { Link } = require('bisheng/router');
 
 export default function (props) {
+  const { toReactComponent } = props.utils;
+  const posts = props.picked.posts;
 
-  const posts = props.data;
-  
-  console.log(posts)
+  // 首页最多放 9 篇文章
+  if (posts.length > 9) {
+    posts.length = 9;
+  }
 
+  // 文章单窗口组件
+  const Window = function(props) {
+    const { meta, description } = props.post;
+    // console.log(description)
+    return (
+      <div className="post-window">
+        <Link to={'/' + meta.filename.replace(/\.md$/i, '')}>
+          <h1>{meta.title}</h1>
+        </Link>
+        <hr/>
+        <div className="window-discription">
+          {
+            meta.cover
+            ? <img src={meta.cover} alt=""/>
+            : toReactComponent(description)
+          }
+        </div>
+        <p className="window-date">
+          {new Date(meta.date).toString().slice(0, 10)}
+        </p>
+      </div>
+    )
+  }
 
   return (
-    <Layout themeConfig={props.themeConfig}>
-      归档页
+    <Layout themeConfig={props.themeConfig} >
+      <div className="archive-content">
+        {posts.map(val => <div key={val.meta.date}><Window post={val} /></div>)}
+      </div>
     </Layout>
   )
 }

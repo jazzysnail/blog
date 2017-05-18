@@ -1,0 +1,46 @@
+.archive-content {
+  display: flex;
+  display: -webkit-flex;
+  justify-content:space-around;
+  align-items: left;
+  flex-wrap: wrap-reverse;
+}
+
+.post-window {
+  display: inline-block;
+  width: 250px;
+  margin-bottom: 30px;
+  &:hover {
+    hr {
+      width: 100%;
+    }
+  }
+  a {
+    color: #666;
+    h1 {
+      font-weight: 300;
+      margin: 10px 0;
+      color: #444;
+    }
+  }
+  hr {
+    transition: width .3s cubic-bezier(.215,.61,.355,1);
+    display: inline-block;
+    border: none;
+    height: 2px;
+    width: 50px;
+    background: #ccc;
+  }
+  .window-discription {
+    font-weight: 100;
+    img {
+      width: 100%;
+    }
+  }
+  .window-date {
+    text-align: right;
+    font-size: 12px;
+    font-weight: 100;
+    color: #ccc;
+  }
+}

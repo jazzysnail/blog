@@ -1,11 +1,11 @@
 ---
 title: npm-rimraf
-publishDate: 2016-07-30
+date: 2016-07-30
 tags: 
   - npm
 ---
 
-> A deep deletion module for node (like `rm -rf`)
+A deep deletion module for node (like `rm -rf`)
 
 ---
 

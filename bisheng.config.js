@@ -7,7 +7,6 @@ module.exports = {
   
   themeConfig: {
     home: '/',
-    hue: 'candy',
     title: 'jazzysnail',
     startyear: '2016',
     nav: [{

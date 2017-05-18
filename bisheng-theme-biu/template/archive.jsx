@@ -8,10 +8,25 @@ export default function (props) {
   const { toReactComponent } = props.utils;
   const posts = props.picked.posts;
 
+  // 文章时间排序
+  const sortedPosts = posts.sort((a,b) => {
+    a = new Date(a.meta.date);
+    b = new Date(b.meta.date);
+    if (a < b) {
+      return -1
+    }else if(a > b){
+      return 1
+    }else{
+      return 0
+    }
+  });
+
   // 首页最多放 9 篇文章
-  if (posts.length > 9) {
-    posts.length = 9;
+  if (sortedPosts.length > 9) {
+    sortedPosts.length = 9;
   }
+
+  console.log(sortedPosts)
 
   // 文章单窗口组件
   const Window = function(props) {
@@ -40,7 +55,7 @@ export default function (props) {
   return (
     <Layout themeConfig={props.themeConfig} >
       <div className="archive-content">
-        {posts.map(val => <div key={val.meta.date}><Window post={val} /></div>)}
+        {sortedPosts.map(val => <div key={val.meta.date}><Window post={val} /></div>)}
       </div>
     </Layout>
   )

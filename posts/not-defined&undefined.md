@@ -1,15 +1,19 @@
 ---
-title: not defined和undefined和Null到底谁是异教徒？
+title: undefined Null 和 not defined
 date: 2016-08-08 19:29:52
 tags: 
   - javascript
 ---
 
-又一个需求完结了，最近好“闲”！总结一个好玩的东西，那就是`not defined` 和 `undefined` 以及`Null`这三兄弟。这三兄弟简直了，一个不小心就要出问题。
+认清 undefined Null 和 not defined
 
 ---
 
+又一个需求完结了，最近好“闲”！总结一个好玩的东西，那就是`not defined` 和 `undefined` 以及`Null`这三兄弟。这三兄弟简直了，一个不小心就要出问题。
+
 别看这三兄弟不仅长的像而且意思也真是TM的“像”，可是他们之间还有很大的区别的。
+
+> 下面代码建议`f12`在控制台运行一下
 
 ## undefined
 > `undefined`类型只有一个值，即特殊的`undefined`。在使用var声明变量但未对其加以初始化时，这个变量的值就是`undefined`。
@@ -71,7 +75,7 @@ if (shashade.attr2) { // 此时已然报错
 }
 ```
 这样写过的同学举一下手~
-那么要怎么办呢？`typeof`笑而不语。
+那么要怎么办呢？使用`typeof`来做类型检测。
 ``` js
 var obj = {
     attr1:"attr1"
@@ -85,3 +89,4 @@ function test(busha) {
     }
 }
 ```
+> 使用`typeof()`方法来判断处理为空的情况最为安全~

@@ -1,6 +1,6 @@
 ---
 title: npm-rimraf
-date: 2016-07-30
+date: 2016-07-30 16:05:14
 tags: 
   - npm
 ---
@@ -11,7 +11,7 @@ A deep deletion module for node (like `rm -rf`)
 
 我想有不少像我一样遇到过这样的一种情况的人，直接上图：
 
-<img src="http://oaul0t4t1.bkt.clouddn.com/imgs/SPTL.png" alt="sptl">
+![sptl](http://oaul0t4t1.bkt.clouddn.com/imgs/SPTL.png)
 
 **source path too long！** 
 

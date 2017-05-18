@@ -26,7 +26,7 @@ export default function (props) {
     sortedPosts.length = 9;
   }
 
-  console.log(sortedPosts)
+  // console.log(sortedPosts)
 
   // 文章单窗口组件
   const Window = function(props) {

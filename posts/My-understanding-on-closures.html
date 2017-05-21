@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_bq7x8lbm8uk81tt9.css"/>
-    <link rel="stylesheet" type="text/css" href="/blog/index.css"/>
+    <link rel="stylesheet" type="text/css" href="/index.css"/>
     <!--[if lt IE 10]>
       <script src="https://as.alipayobjects.com/g/component/??console-polyfill/0.2.2/index.js,es5-shim/4.5.7/es5-shim.min.js,es5-shim/4.5.7/es5-sham.min.js,html5shiv/3.7.2/html5shiv.min.js,media-match/2.0.2/media.match.min.js"></script>
     <![endif]-->
@@ -71,6 +71,6 @@ for (var i = 1; i &lt;= 10; i++) {
 代码什么意思呢？<!-- /react-text --></p><p data-reactid="65"><!-- react-text: 66 -->给这十个div都绑定一个点击事件，来控制台打印div的索引值（就等于闭包函数的i值）。<!-- /react-text --></p><p data-reactid="67"><!-- react-text: 68 -->方式一、没有使用闭包，只是单纯的给每一个div绑定了点击事件，内部方法打印的i即为全局变量i（即为for循环后留下的变量i，值为11）。<!-- /react-text --></p><p data-reactid="69"><!-- react-text: 70 -->方式二、使用了闭包，每当循环执行一次就给当前div绑定点击事件时同时创建一个闭包，闭包里的变量i即为创建时当前i的值，当相应的div触发点击事件时打印出的即为相应绑定时i的值。<!-- /react-text --></p><p data-reactid="71"><!-- react-text: 72 -->这样闭包就很好的保护了内部函数所使用的是当时的i而不是全局下的i。是不是感觉吊吊的？？<!-- /react-text --></p><p data-reactid="73"><strong data-reactid="74"><!-- react-text: 75 -->总结：<!-- /react-text --></strong></p><blockquote data-reactid="76"><p data-reactid="77"><!-- react-text: 78 -->一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。
 回过头来看这句话应该理解了不少，虽然还是有点模糊，但起码会用了不是么？<!-- /react-text --><strong data-reactid="79"><!-- react-text: 80 -->保持一个变量常住内存，保护函数内部变量不被回收也不被覆盖。<!-- /react-text --></strong></p></blockquote><p data-reactid="81"><!-- react-text: 82 -->写到这里应该可以简单的理解javascript的闭包了~<!-- /react-text --></p><p data-reactid="83"><!-- react-text: 84 -->由csdn《<!-- /react-text --><a href="http://blog.csdn.net/jazzysnail/article/details/49301283" data-reactid="85"><!-- react-text: 86 -->关于闭包之我见<!-- /react-text --></a><!-- react-text: 87 -->》 2015-10-21 10:45 转移至此<!-- /react-text --></p></article></div><div class="post-footer" data-reactid="88"><a class="previous" data-reactid="89"><i class="mineicon mineicon-arrowleft" data-reactid="90"></i><!-- react-text: 91 --> prev<!-- /react-text --></a><span data-reactid="92">⌘+e back to news  ⌘+enter post comment</span><a class="next" data-reactid="93"><!-- react-text: 94 -->next <!-- /react-text --><i class="mineicon mineicon-arrowright" data-reactid="95"></i></a></div><div data-reactid="96"><div id="commentsH" data-reactid="97"></div><div id="commentsC" data-reactid="98"></div><div id="commentsE" data-reactid="99"></div></div></div></div><footer data-reactid="100"><span class="linkup" data-reactid="101"><a href="http://github.com/jazzysnail" target="_blank" data-reactid="102"><i class="mineicon mineicon-github" data-reactid="103"></i></a><a href="http://2017.zcool.com.cn/u/2061043" target="_blank" data-reactid="104"><i class="mineicon mineicon-zcool" data-reactid="105"></i></a></span><p data-reactid="106"><!-- react-text: 107 -->2016<!-- /react-text --><!-- react-text: 108 -->-<!-- /react-text --><!-- react-text: 109 -->2017<!-- /react-text --><!-- react-text: 110 --> leon’s blog Powered by <!-- /react-text --><a href="https://github.com/benjycui/bisheng" data-reactid="111">Bisheng</a></p></footer></div></div>
   </body>
-  <script src="/blog/common.js"></script>
-  <script src="/blog/index.js"></script>
+  <script src="/common.js"></script>
+  <script src="/index.js"></script>
 </html>

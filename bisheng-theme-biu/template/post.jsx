@@ -3,11 +3,44 @@ import React from 'react';
 import '../static/style';
 // components
 import Layout from './layout';
+import 'gitment/style/default.css';
+import Gitment from 'gitment';
+
+// 评论区
+class Comments extends React.Component {
+  componentDidMount() {
+    const gitment = new Gitment({
+      id: 'jazzysnail',
+      owner: 'jazzysnail',
+      repo: 'blog',
+      title: '666',
+      oauth: {
+        client_id: '43639d4bf6cd906e8b5f',
+        client_secret: 'fc798d7c539ae7f1d2888443b2ec364334d4aa5f',
+      }
+    });
+    gitment.renderHeader('commentsH');
+    gitment.renderComments('commentsC');
+    gitment.renderEditor('commentsE');
+  }
+
+  render() {
+    return (
+     <div>
+        <div id="commentsH"></div>
+        <div id="commentsC"></div>
+        <div id="commentsE"></div>
+     </div>
+    );
+  }
+}
+
 
 export default function (props) {
   const postName = props.router.params.post;
   const { toReactComponent } = props.utils;
   const pageData = props.pageData;
+  
   // 日期
   const Date = function(props) {
     if (props.date) {
@@ -56,7 +89,7 @@ export default function (props) {
           <i className="mineicon mineicon-arrowleft"></i>
           &nbsp;prev
         </a>
-        <span>⌘+e back to news  ⌘+enter post comment</span>
+        <span>⌘+e back to archive  ⌘+enter post comment</span>
 
         <a className="next">next&nbsp;
           <i className="mineicon mineicon-arrowright"></i>

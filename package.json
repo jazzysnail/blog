@@ -8,6 +8,7 @@
     "antd": "/usr/local2.10.1",
     "bisheng": "^0.23.2",
     "bisheng-plugin-description": "/usr/local0.1.2",
+    "gitment": "/usr/local0.0.3",
     "rc-scroll-anim": "/usr/local1.0.3"
   },
   "version": "0.0.1",

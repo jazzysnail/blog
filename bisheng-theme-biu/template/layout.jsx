@@ -18,7 +18,11 @@ const Header = function(props) {
       <div className="header-content">
         <div className="title">
           <Rlink to="/">
-            {props.title}
+            <img
+              className="logo"
+              src={props.logo}
+              alt="logo"
+            />
           </Rlink>
         </div>
         <div className="nav">
@@ -65,7 +69,7 @@ export default function (props) {
     <div className="layout">
       <div className="paper">
         <Header
-          title={props.themeConfig.title}
+          logo={props.themeConfig.logo}
           nav={props.themeConfig.nav}
         />
         <Content>

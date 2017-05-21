@@ -7,13 +7,13 @@ module.exports = {
   
   themeConfig: {
     home: '/',
-    title: 'jazzysnail',
+    logo: 'http://oaul0t4t1.bkt.clouddn.com/imgs/blog-logo.jpg',
     startyear: '2016',
     nav: [{
       label: 'Journal',
       uri: '/'
     },{
-      label: 'Art',
+      label: 'Artwork',
       uri: '/'
     },{
       label: 'JS',
@@ -22,7 +22,7 @@ module.exports = {
       label: 'About',
       uri: '/'
     },{
-      label: 'Findme',
+      label: 'Vita',
       uri: '/'
     }],
     linkup: [{
@@ -32,7 +32,5 @@ module.exports = {
       link: 'http://2017.zcool.com.cn/u/2061043',
       icon: 'zcool'
     }]
-  },
-
-  root: '/blog/'
+  }
 }

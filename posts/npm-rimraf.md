@@ -9,17 +9,19 @@ A deep deletion module for node (like `rm -rf`)
 
 ---
 
-我想有不少像我一样遇到过这样的一种情况的人，直接上图：
+我想应该还是有不少遇到过一样问题的人：
 
 ![sptl](http://oaul0t4t1.bkt.clouddn.com/imgs/SPTL.png)
 
 **source path too long！** 
 
-这TM就尴尬了！源路径太长？什么情况，难道还删除不了了不成？有一句话是这样说的，你遇到的BUG，肯定也有人遇到过，于是马上google。探索的结果就是发现一个绝活npm包，[rimraf](https://www.npmjs.com/package/rimraf)。
+源路径太长，应该是路径太深了，Windows 系统对文件路径名的长度是有限制的，超过256个字符就访问不到了。好像有句话是这样说的，你能遇到的 bug 肯定有人早就遇到过了，于是 google之。
 
-干掉`node_modules`仅仅需要三步:
-1. `npm install -g rimraf`
-2. `cd xxx[include node_modules folder]`
-3. `rimraf node_modules`
+[rimraf](https://www.npmjs.com/package/rimraf) A deep deletion module for node (like `rm -rf`)
 
-** 强！无敌！ **
+删掉 `node_modules` 仅需三步：
+``` bash
+npm install rimraf -g
+cd xxx ## [include node_modules folder]
+rimraf node_modules
+```

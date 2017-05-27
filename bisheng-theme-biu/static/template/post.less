@@ -22,21 +22,38 @@
 }
 
 .entry-content{
+  .before-h(@content) {
+    position: relative;
+    &:hover {
+      &:before {
+        content: @content;
+        text-align: right;
+        position: absolute;
+        left: -20px;
+        bottom: 0;
+        color: #ccc;
+        font-size: 12px;
+      }
+    }
+  }
   // 一级标题
   h1 {
     font-size: 20px;
+    .before-h('H¹')
   }
 
   // 二级标题
   h2 {
     font-size: 16px;
     font-weight: 500;
+    .before-h('H²')
   }
 
   // 三级标题
   h3 {
     font-size: 14px;
     font-weight: 500;
+    .before-h('H³')
   }
 
   // 配图

@@ -8,7 +8,11 @@ const Header = function(props) {
   const navList = props.nav.map(val => {
     return (
       <li key={val.label + val.uri}>
-        <Rlink to={val.uri}>{val.label}</Rlink>
+        {
+          val.disabled
+          ? <span>{val.label}</span>
+          : <Rlink to={val.uri}>{val.label}</Rlink>
+        }
       </li>
     )
   });
@@ -28,6 +32,7 @@ const Header = function(props) {
         <div className="nav">
           <ul>{navList}</ul>
         </div>
+        <div className="header-bottom-line"></div>
       </div>
     </header>
   )
@@ -59,7 +64,8 @@ const Footer = function(props) {
   return (
     <footer>
       <span className="linkup">{Linkup}</span>
-      <p>{props.startyear || Year}-{Year} leon’s blog Powered by <a href="https://github.com/benjycui/bisheng">Bisheng</a></p>
+      <p>All Content Copyright © {props.startyear || Year}-{Year} leon’s blog</p>
+      <p style={{color:'#ccc'}}>Powered by <a href="https://github.com/benjycui/bisheng">Bisheng</a></p>
     </footer>
   )
 }

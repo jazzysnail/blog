@@ -9,19 +9,24 @@ module.exports = {
     startyear: '2016',
     nav: [{
       label: 'Journal',
-      uri: '/'
+      uri: '/',
+      disabled: true
     },{
       label: 'Artwork',
-      uri: '/'
+      uri: '/',
+      disabled: true
     },{
       label: 'JS',
-      uri: '/'
+      uri: '/',
+      disabled: true
     },{
       label: 'About',
-      uri: '/'
+      uri: '/',
+      disabled: true
     },{
       label: 'Vita',
-      uri: '/'
+      uri: '/',
+      disabled: true
     }],
     linkup: [{
       link: 'http://github.com/jazzysnail',

@@ -4,17 +4,21 @@
   .paper {
     background: #fff;
     width: 960px;
-    margin: 50px auto 80px auto;
+    margin: 50px auto 50px;
     transition: box-shadow .5s cubic-bezier(.215,.61,.355,1);
     transition: transform .5s cubic-bezier(.215,.61,.355,1);
-    &:hover {
-      transform: translateY(-2px);
-      // box-shadow: rgba(100, 100, 100, 0.1) 0 0 10px 0;
-      box-shadow: rgba(0, 0, 0, 0.1) 0 0 2px 0, 2px 3px 5px 0px rgba(0,0,0,0.1);
+    @media (min-width: 960px) {
+      &:hover {
+        transform: translateY(-2px);
+        // box-shadow: rgba(100, 100, 100, 0.1) 0 0 10px 0;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 0 2px 0, 2px 3px 5px 0px rgba(0,0,0,0.1);
+      }
+    }
+    @media (max-width: 960px) {
+      width: 100%;
+      margin: 0;
     }
     header.layout-header {
-      height: 40px;
-      line-height: 40px;
       padding: 20px 45px 0 45px;
       zoom: 1;
       &:before,
@@ -29,27 +33,43 @@
         height: 0;
       }
       .header-content {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #585858;
+        .header-bottom-line {
+          height: 3px;
+          background: #585858;
+          margin-bottom: 2px;
+        }
         .title {
           display: inline-block;
           width: 300px;
-          text-align: center;
+          @media (max-width: 960px) {
+            display: none;
+          }
           .logo{
-            height: 40px;
+            width: 100%;
             -webkit-filter: saturate(.1);
             filter: saturate(.1);
           }
         }
         .nav {
           float: right;
+          height: 40px;
+          line-height: 40px;
+          @media (max-width: 960px) {
+            float: none;
+            text-align: center;
+          }
           ul {
             margin: 0;
             padding: 0;
             li {
               display: inline-block;
               padding: 0 20px;
+              @media (max-width: 960px) {
+                padding: 0 2%;
+              }
               a {
-                color: #666;
+                color: #585858;
                 &:hover {
                   color: @hue;
                 }
@@ -68,13 +88,22 @@
   footer {
     text-align: center;
     font-weight: 100;
-    a {
-      color: #666;
+    p {
+      margin: .5em;
+      a {
+        color: #ccc;
+        transition: color .3s cubic-bezier(.215,.61,.355,1);
+        &:hover {
+          color: #585858;
+        }
+      }
     }
+    
     .linkup {
       font-size: 12px;
       a {
         margin: 0 2.5px;
+        color: #585858
       }
     }
   }

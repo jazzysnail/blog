@@ -70,8 +70,20 @@
 }
 
 .post-footer {
-  padding: 20px 0;
+  border-top: 1px solid #585858;
   text-align: center;
+  padding-bottom: 20px;
+  @media (max-width: 960px) {
+    span {
+      display: none;
+    }
+  }
+  .post-footer-line {
+    height: 3px;
+    background: #585858;
+    margin-top: 2px;
+    margin-bottom: 20px;
+  }
   a {
     color: #555;
     cursor: pointer;

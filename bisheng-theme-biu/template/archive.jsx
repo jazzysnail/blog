@@ -6,16 +6,16 @@ const { Link } = require('bisheng/router');
 
 export default function (props) {
   const { toReactComponent } = props.utils;
-  const posts = props.picked.posts;
+  const posts = props.picked.posts.slice();
 
   // 文章时间排序
   const sortedPosts = posts.sort((a,b) => {
     a = new Date(a.meta.date);
     b = new Date(b.meta.date);
     if (a < b) {
-      return -1
-    }else if(a > b){
       return 1
+    }else if(a > b){
+      return -1
     }else{
       return 0
     }

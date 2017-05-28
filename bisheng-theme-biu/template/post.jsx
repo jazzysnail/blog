@@ -48,8 +48,8 @@ const aimInArray = function(array, value, ...keys) {
   for (var i = 0; i < _array.length; i++) {
     if (_array[i] == value) {
       return {
-        prev: _array[i-1] || _array[_array.length-1],
-        next: _array[i+1] || _array[0]
+        prev: i == 0 ? _array.length-1 : i-1,
+        next: i == _array.length-1 ? 0 : i+1
       }
     }
   }
@@ -118,18 +118,26 @@ export default function (props) {
   }
   // 分页
   const Pager = function(props) {
+    let prevFilename = props.prevPost.meta.filename;
+    let nextFilename = props.nextPost.meta.filename;
     return (
       <div className="post-footer">
         <div className="post-footer-line"></div>
-        <Rlink to={props.prevPost} className="previous">
+        <Rlink to={prevFilename.slice(0,prevFilename.length-3)} className="previous">
           <i className="mineicon mineicon-arrowleft"></i>
-          &nbsp;prev
+          &nbsp;
+          <span className="label">prev</span>
+          <span className="post-title">{props.prevPost.meta.title}</span>
         </Rlink>
 
-        <span>⌘+e back to archive  ⌘+enter post comment</span>
+        <span className="comment-tip">
+          <span>⌘+enter post comment</span>
+        </span>
 
-        <Rlink to={props.nextPost} className="next">
-          next&nbsp;
+        <Rlink to={nextFilename.slice(0,nextFilename.length-3)} className="next">
+          <span className="post-title">{props.nextPost.meta.title}</span>
+          <span className="label">next</span>
+          &nbsp;
           <i className="mineicon mineicon-arrowright"></i>
         </Rlink>
       </div>
@@ -144,7 +152,7 @@ export default function (props) {
       </div>
       <h1>{pageData.meta.title}</h1>
       <Content />
-      <Pager prevPost={prev} nextPost={next}/>
+      <Pager prevPost={sortedPosts[prev]} nextPost={sortedPosts[next]}/>
     </Layout>
   )
 }

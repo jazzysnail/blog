@@ -9,15 +9,15 @@ module.exports = {
     startyear: '2016',
     nav: [{
       label: 'Journal',
-      uri: '/',
+      uri: '/tag/Journal',
       disabled: true
     },{
       label: 'Artwork',
-      uri: '/',
+      uri: '/tag/Art',
       disabled: true
     },{
       label: 'JS',
-      uri: '/',
+      uri: '/tag/JS',
       disabled: true
     },{
       label: 'About',

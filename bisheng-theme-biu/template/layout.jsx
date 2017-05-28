@@ -30,7 +30,10 @@ const Header = function(props) {
           </Rlink>
         </div>
         <div className="nav">
-          <ul>{navList}</ul>
+          <ul>
+            <li className="to-home"><Rlink to="/">Home</Rlink></li>
+            {navList}
+          </ul>
         </div>
         <div className="header-bottom-line"></div>
       </div>

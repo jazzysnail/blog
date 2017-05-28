@@ -103,11 +103,6 @@
     font-size: 0;
     height: 0;
   }
-  @media (max-width: 960px) {
-    span {
-      display: none;
-    }
-  }
   .post-footer-line {
     height: 3px;
     background: #585858;
@@ -154,9 +149,17 @@
     left: 50%;
     font-weight: 100;
     color: #ddd;
+    @media (max-width: 960px) {
+      display: none;
+    }
     span {
       position: relative;
       left: -50%;
+      -moz-user-select:none;
+      -webkit-user-select:none;
+      -ms-user-select:none;
+      -khtml-user-select:none;
+      user-select:none;
     }
   }
 }

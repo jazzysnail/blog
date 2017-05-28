@@ -130,9 +130,9 @@ export default function (props) {
           <span className="post-title">{props.prevPost.meta.title}</span>
         </Rlink>
 
-        <span className="comment-tip">
+        <div className="comment-tip">
           <span>⌘+enter post comment</span>
-        </span>
+        </div>
 
         <Rlink to={nextFilename.slice(0,nextFilename.length-3)} className="next">
           <span className="post-title">{props.nextPost.meta.title}</span>

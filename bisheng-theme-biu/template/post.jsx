@@ -143,6 +143,20 @@ export default function (props) {
       </div>
     )
   }
+  // github star
+  const Star = function(props) {
+    return (
+      <div>
+        <div className="blog-star">
+          <iframe
+            src="https://ghbtns.com/github-btn.html?user=jazzysnail&repo=blog&type=star&count=true&size=large"
+            scrolling="0">
+          </iframe>
+        </div>
+        <p style={{textAlign:"center"}}>如果我的文章对你有帮助请奖励一个小星星~</p>
+      </div>
+    )
+  }
 
   return (
     <Layout themeConfig={props.themeConfig}>
@@ -152,6 +166,7 @@ export default function (props) {
       </div>
       <h1>{pageData.meta.title}</h1>
       <Content />
+      <Star />
       <Pager prevPost={sortedPosts[prev]} nextPost={sortedPosts[next]}/>
     </Layout>
   )

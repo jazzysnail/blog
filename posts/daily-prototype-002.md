@@ -38,7 +38,7 @@ console.log(array.every(val => val>10) ? 'pass' : 'not pass'); // => pass
 
 <br>
 
-# # Array.prototype.some()
+# Array.prototype.some()
 ---
 > some() 方法测试数组中的某些元素是否通过了指定函数的测试。
 

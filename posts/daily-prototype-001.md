@@ -1,14 +1,13 @@
 ---
-title: daily prototype
+title: concat
 date: 2017-05-27 23:03:46
+cover: 'http://oaul0t4t1.bkt.clouddn.com/imgs/daily_pt_001.png'
 tags: 
   - JS
   - Array
 ---
 
-【每日原型】Day 001-100
-
-**Array.prototype.concat()**
+null
 
 ---
 
@@ -18,10 +17,10 @@ tags:
 
 所以决定立一个‘百日计划’，每天巩固一个 javascript 的原型，看看自己究竟能不能做到。
 
----
+<br>
 
 # Array.prototype.concat()
-
+---
 > concat() 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
 
 ## 语法

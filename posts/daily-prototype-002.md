@@ -1,15 +1,13 @@
 ---
 title: every & some
 date: 2017-05-28 22:37:30
+cover: 'http://oaul0t4t1.bkt.clouddn.com/imgs/daily_pt_002.png'
 tags: 
   - JS
   - Array
 ---
 
-【每日原型】Day 002-100
-
-**Array.prototype.every()**
-**Array.prototype.some()**
+null
 
 ---
 <br>

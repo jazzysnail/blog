@@ -1,16 +1,13 @@
 ---
 title: map & reduce
 date: 2017-05-29 21:08:25
+cover: 'http://oaul0t4t1.bkt.clouddn.com/imgs/daily_pt_003.png'
 tags: 
   - JS
   - Array
 ---
 
-【每日原型】Day 003-100
-
-**Array.prototype.map()**
-**Array.prototype.reduce()** <br>   
-**文末有彩蛋!**
+null
 
 ---
 <br>

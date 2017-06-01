@@ -1,5 +1,5 @@
 ---
-title: Disconf 分布式配置管理平台
+title: Disconf 分布式配置管理平台（草稿）
 date: 2017-05-23 23:30:39
 tags: 
   - 草稿

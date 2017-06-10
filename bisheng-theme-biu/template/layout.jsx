@@ -7,7 +7,7 @@ const Header = function(props) {
 
   const navList = props.nav.map(val => {
     return (
-      <li key={val.label + val.uri}>
+      <li key={val.label + val.uri} className={val.mobile ? '' : 'hide-in-mobile' }>
         {
           val.disabled
           ? <span>{val.label}</span>
@@ -68,7 +68,7 @@ const Footer = function(props) {
     <footer>
       <span className="linkup">{Linkup}</span>
       <p>All Content Copyright © {props.startyear || Year}-{Year} leon’s blog</p>
-      <p style={{color:'#ccc'}}>Powered by <a href="https://github.com/benjycui/bisheng">Bisheng</a></p>
+      <p style={{color:'#ccc'}}>Powered by <a href="https://github.com/benjycui/bisheng" target="_blank">Bisheng</a></p>
     </footer>
   )
 }

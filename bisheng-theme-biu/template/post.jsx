@@ -7,7 +7,7 @@ import 'gitment/style/default.css';
 import Gitment from 'gitment';
 const Rlink = require('bisheng/router').Link;
 
-// 评论区
+// Comments
 class Comments extends React.Component {
   componentDidMount() {
     const gitment = new Gitment({
@@ -76,7 +76,7 @@ export default function (props) {
   const postName = props.router.params.post;
   const { toReactComponent } = props.utils;
   const pageData = props.pageData;
-  // 日期
+  // date
   const Dateofpost = function(props) {
     if (props.date) {
       return (
@@ -89,7 +89,7 @@ export default function (props) {
       return null
     }
   }
-  // 标签
+  // tags
   const Tags = function(props) {
     if (props.tags) {
       return (
@@ -108,7 +108,7 @@ export default function (props) {
       return null
     }
   }
-  // 内容
+  // content
   const Content = function(props) {
     return React.createElement(
       'div',
@@ -116,7 +116,7 @@ export default function (props) {
       toReactComponent(pageData.content)
     )
   }
-  // 分页
+  // page
   const Pager = function(props) {
     let prevFilename = props.prevPost.meta.filename;
     let nextFilename = props.nextPost.meta.filename;
@@ -131,7 +131,7 @@ export default function (props) {
         </Rlink>
 
         <div className="comment-tip">
-          <span>⌘+enter post comment</span>
+          <span>⌘ + enter post comment</span>
         </div>
 
         <Rlink to={nextFilename.slice(0,nextFilename.length-3)} className="next">
@@ -149,11 +149,10 @@ export default function (props) {
       <div>
         <div className="blog-star">
           <iframe
-            src="https://ghbtns.com/github-btn.html?user=jazzysnail&repo=blog&type=star&count=true&size=large"
+            src="https://ghbtns.com/github-btn.html?user=jazzysnail&repo=blog&type=star&count=true&size=small"
             scrolling="0">
           </iframe>
         </div>
-        <p style={{textAlign:"center"}}>如果我的文章对你有帮助请奖励一个小星星~</p>
       </div>
     )
   }

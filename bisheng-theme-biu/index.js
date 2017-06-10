@@ -24,5 +24,8 @@ module.exports = {
     path: '/posts/:post',
     dataPath: '/:post',
     component: './template/post'
+  },{
+    path: '/about',
+    component: './template/about'
   }]
 };

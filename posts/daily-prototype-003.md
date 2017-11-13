@@ -1,7 +1,7 @@
 ---
 title: map & reduce
 date: 2017-05-29 21:08:25
-cover: 'http://oaul0t4t1.bkt.clouddn.com/imgs/daily_pt_003.png'
+cover: 'http://oaul0t4t1.bkt.clouddn.com/imgs/weekly_pt_3.png'
 tags: 
   - JS
   - Array

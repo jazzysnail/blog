@@ -1,7 +1,7 @@
 ---
 title: find & indexOf
 date: 2017-05-31 23:20:50
-cover: 'http://oaul0t4t1.bkt.clouddn.com/imgs/daily_pt_005.png'
+cover: 'http://oaul0t4t1.bkt.clouddn.com/imgs/weekly_pt_5.png'
 tags: 
   - JS
   - Array

@@ -1,7 +1,7 @@
 ---
 title: every & some
 date: 2017-05-28 22:37:30
-cover: 'http://oaul0t4t1.bkt.clouddn.com/imgs/daily_pt_002.png'
+cover: 'http://oaul0t4t1.bkt.clouddn.com/imgs/weekly_pt_2.png'
 tags: 
   - JS
   - Array

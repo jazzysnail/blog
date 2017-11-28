@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leon's blog</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_bq7x8lbm8uk81tt9.css"/>
+    <link rel="stylesheet" type="text/css" href="/index.css"/>
+    <!--[if lt IE 10]>
+      <script src="https://as.alipayobjects.com/g/component/??console-polyfill/0.2.2/index.js,es5-shim/4.5.7/es5-shim.min.js,es5-shim/4.5.7/es5-sham.min.js,html5shiv/3.7.2/html5shiv.min.js,media-match/2.0.2/media.match.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="react-content"><div class="layout" data-reactroot="" data-reactid="1" data-react-checksum="-361208029"><div class="paper" data-reactid="2"><header class="layout-header" data-reactid="3"><div class="header-content" data-reactid="4"><div class="title" data-reactid="5"><a href="/" data-reactid="6"><img class="logo" src="http://oaul0t4t1.bkt.clouddn.com/imgs/blog-logo.jpg" alt="logo" data-reactid="7"/></a></div><div class="nav" data-reactid="8"><ul data-reactid="9"><li class="to-home" data-reactid="10"><a href="/" data-reactid="11">Home</a></li><li class="" data-reactid="12"><span data-reactid="13">Journal</span></li><li class="hide-in-mobile" data-reactid="14"><span data-reactid="15">Artwork</span></li><li class="" data-reactid="16"><span data-reactid="17">JS</span></li><li class="hide-in-mobile" data-reactid="18"><a href="/about" data-reactid="19">About</a></li></ul></div><div class="header-bottom-line" data-reactid="20"></div></div></header><div class="layout-content" data-reactid="21"><div class="post-info" data-reactid="22"><span data-reactid="23"><i class="mineicon mineicon-clock" data-reactid="24"></i><time data-reactid="25">2017-11-28</time></span><span data-reactid="26"><i class="mineicon mineicon-sale" data-reactid="27"></i><span class="tags" data-reactid="28"><a href="/" data-reactid="29">JS</a></span></span></div><h1 data-reactid="30">尝试为 js 实现引用传递</h1><div class="entry-content" data-reactid="31"><article data-reactid="32"><p data-reactid="33"><!-- react-text: 34 -->一次同事的提问让我深深的感知到知识的缺失实在严重。关于 js 中参数传递是值传递的，我个人虽然对其表现是知道的并能正确使用。但好像并不能给别人讲的清清楚楚。<!-- /react-text --></p><p data-reactid="35"><!-- react-text: 36 -->所以我尝试完全剖析一下引用传递究竟是怎样的，当然开头先帮助 js 入门同学解释为何 js 参数传递是值传递。后面会一点一点进阶实现一个引用传递。或者说如何在两个变量之间建立具有破坏性的引用。<!-- /react-text --></p><p data-reactid="37"><!-- react-text: 38 -->首先我们先将函数调用时的一些小动作做分解：<!-- /react-text --></p><pre class="language-js" data-reactid="39"><code data-reactid="40"><span class="token keyword">function</span> setName <span class="token punctuation">(</span>_p<span class="token punctuation">,</span> _name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  _p<span class="token punctuation">.</span>name <span class="token operator">=</span> _name
+  _p <span class="token operator">=</span> <span class="token keyword">null</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">let</span> p <span class="token operator">=</span> <span class="token punctuation">{</span>name<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">}</span>
+<span class="token function">setName</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> <span class="token string">'leon'</span><span class="token punctuation">)</span>
+p<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// => {name: 'leon'}</span>
+<span class="token comment" spellcheck="true">// 思考为什么 p 没有变成 null ?</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 其实函数在调用时形参转化为实参时和下面这样是等效的
+ */</span>
+<span class="token keyword">let</span> _p<span class="token punctuation">,</span> _name<span class="token punctuation">;</span>
+_p <span class="token operator">=</span> p<span class="token punctuation">;</span>
+_name <span class="token operator">=</span> <span class="token string">'leon'</span><span class="token punctuation">;</span>
+_p <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/**
+ * 后面对 _p 进行重新赋值也仅仅改变的是 setName 函数执行环境中的变量 _p 的值而已，并不会影响父级环境的 p。
+ * 到这里其实已经解释完了，但是我还是喜欢多问几个为什么，肯定有人也想过下面这种问题。
+ */</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> b <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+a<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// => 0</span>
+b<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// => 1</span>
+<span class="token comment" spellcheck="true">/**
+ * 思考为什么 b 的值没有被改变，如果我想让他们完全绑定（引用传递）在一起该怎么办？
+ * 就像是一个人真正拥有了两个名字，而不仅仅是复制一个（值传递），虽然听起来看起来都很奇怪。
+ */</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> b <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+a <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+a<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// => 0</span>
+b<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// => 0</span></code></pre><p data-reactid="41"><!-- react-text: 42 -->下面我将使用 js 着手实现一个引用传递，如果没有兴趣就可以关掉了，因为你已经知道了：<!-- /react-text --></p><blockquote data-reactid="43"><p data-reactid="44"><!-- react-text: 45 -->在 js 中参数传递和赋值运算都是值传递的<!-- /react-text --></p></blockquote><p data-reactid="46"><!-- react-text: 47 -->下面是一些环境准备工作，<!-- /react-text --><strong data-reactid="48"><!-- react-text: 49 -->需要一定的 ES 规范的基础<!-- /react-text --></strong><!-- react-text: 50 -->，以及一些 ES6 的语法，如果不熟悉其实也不妨继续看下去，但是你得抓紧学习了。<!-- /react-text --></p><pre class="language-js" data-reactid="51"><code data-reactid="52"><span class="token comment" spellcheck="true">/**
+ * 这个类（构造函数加 [[prototype]]）是用于实例化一个引用规范类型的
+ * 这个引用规范类型将被用来描述一个抽象引用关系
+ * 由 name、discription 和 canReferenced 三部分组成
+ * 
+ * @param  {String}  name           引用记录名称
+ * @param  {Any}     discription    引用描述
+ * @param  {Boolean} canReferenced  是否可以被引用传递,默认可以
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">Reference</span> <span class="token punctuation">{</span>
+  constructor <span class="token punctuation">(</span>ro <span class="token operator">=</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+    discription<span class="token punctuation">:</span> undefined<span class="token punctuation">,</span>
+    canReferenced<span class="token punctuation">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> ro<span class="token punctuation">.</span>name
+    <span class="token keyword">this</span><span class="token punctuation">.</span>canReferenced <span class="token operator">=</span> ro<span class="token punctuation">.</span>canReferenced <span class="token operator">===</span> undefined <span class="token operator">?</span> <span class="token boolean">true</span> <span class="token punctuation">:</span> ro<span class="token punctuation">.</span>canReferenced
+    <span class="token keyword">this</span><span class="token punctuation">[</span><span class="token string">'[[seter]]'</span><span class="token punctuation">]</span><span class="token punctuation">(</span>ro<span class="token punctuation">.</span>discription<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">/**
+   * 内部方法，设置引用描述
+   * @param  {Any}  disc  引用描述
+   */</span>
+  <span class="token string">'[[seter]]'</span> <span class="token punctuation">(</span>disc<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>disc <span class="token keyword">instanceof</span> <span class="token class-name">Reference</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>disc<span class="token punctuation">.</span>canReferenced<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      disc <span class="token operator">=</span> disc<span class="token punctuation">[</span><span class="token string">'[[geter]]'</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>discription <span class="token keyword">instanceof</span> <span class="token class-name">Reference</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>discription<span class="token punctuation">[</span><span class="token string">'[[seter]]'</span><span class="token punctuation">]</span><span class="token punctuation">(</span>disc<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>discription <span class="token operator">=</span> disc
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">/**
+   * 内部方法，获取引用描述
+   */</span>
+  <span class="token string">'[[geter]]'</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>discription <span class="token keyword">instanceof</span> <span class="token class-name">Reference</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>discription<span class="token punctuation">[</span><span class="token string">'[[geter]]'</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>discription
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 获得引用规范类型的值
+ * @param {Reference} v
+ * @param {Boolean}   d  取址标志，是否获取原始引用类型，用于实现取址符‘&amp;’
+ */</span>
+<span class="token keyword">function</span> GetValue <span class="token punctuation">(</span>v<span class="token punctuation">,</span> d<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>v <span class="token keyword">instanceof</span> <span class="token class-name">Reference</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>d <span class="token operator">?</span> v <span class="token punctuation">:</span> v<span class="token punctuation">[</span><span class="token string">'[[geter]]'</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'TypeError: v is not a reference'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> undefined
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 设置引用规范类型的值
+ * @param {Reference} v
+ */</span>
+<span class="token keyword">function</span> PutValue <span class="token punctuation">(</span>v<span class="token punctuation">,</span> w<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>v <span class="token keyword">instanceof</span> <span class="token class-name">Reference</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> v<span class="token punctuation">[</span><span class="token string">'[[seter]]'</span><span class="token punctuation">]</span><span class="token punctuation">(</span>w<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'TypeError: v is not a reference'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> undefined
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><p data-reactid="53"><!-- react-text: 54 -->上面的环境准备在创建引用规范类型时减去了基值（base）和严格引用标识（strict reference）改为引用描述（discription）作为实现，增加 <!-- /react-text --><code data-reactid="55"><!-- react-text: 56 -->canReferenced<!-- /react-text --></code><!-- react-text: 57 --> 作为是否可被引用传递的标识。因为下面的例子只单纯以赋值运算作为例子（基值在作为对象属性应用时会用到），希望能够简单快速的创建出引用规范类型。<!-- /react-text --></p><p data-reactid="58"><!-- react-text: 59 -->下面开始实现一个简单的环境记录用来存放这些引用。<!-- /react-text --></p><p data-reactid="60"><!-- react-text: 61 -->由替换产生式：<!-- /react-text --></p><blockquote data-reactid="62"><p data-reactid="63"><!-- react-text: 64 -->AssignmentExpression :<!-- /react-text --></p><p data-reactid="65"><!-- react-text: 66 -->LeftHandSideExpression = AssignmentExpression<!-- /react-text --></p></blockquote><p data-reactid="67"><!-- react-text: 68 -->所得到记录项的所有可能的集合我们取名为引用范畴（随便取名~~），以以下对象 Rc （reference category）作为实例。<!-- /react-text --></p><pre class="language-js" data-reactid="69"><code data-reactid="70"><span class="token keyword">const</span> RcPrototype <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/**
+   * 添加引用记录项
+   * @param  {String}  name           引用记录名称，当为更改时无效
+   * @param  {Any}     discription    引用描述，实际的应用体，一个引用对象
+   * @param  {Boolean} isNewReference 尝试声明新变量标志
+   * @return {String}                 记录项的索引
+   */</span>
+  put <span class="token punctuation">(</span>name<span class="token punctuation">,</span> reference<span class="token punctuation">,</span> isNewReference<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token keyword">in</span> <span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name <span class="token operator">===</span> reference<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>isNewReference<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Identifier '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>reference<span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">' has already been declared`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token function">PutValue</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token function">GetValue</span><span class="token punctuation">(</span>reference<span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token keyword">return</span> i
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">this</span><span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> reference
+    <span class="token keyword">return</span> name
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">/**
+   * 获得引用记录项
+   * @param  {String} name 引用记录名称
+   * @return {Reference}   引用记录
+   */</span>
+  <span class="token keyword">get</span> <span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token keyword">in</span> <span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name <span class="token operator">===</span> name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`TypeError: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> is not defined`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> Rc <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>RcPrototype<span class="token punctuation">)</span></code></pre><p data-reactid="71"><!-- react-text: 72 -->到这里环境准备就完成了，下面我们来验证是否真的可以做到引用传递。注释内容为 js 语法，紧跟着的是假想的通过词法、语法解释器解释后执行的具体代码。<!-- /react-text --></p><pre class="language-js" data-reactid="73"><code data-reactid="74"><span class="token comment" spellcheck="true">/**
+ * 分别声明并初始化 p1, p2 两个变量
+ * p1 允许被引用传递
+ * p2 不允许被引用传递
+ */</span>
+
+<span class="token comment" spellcheck="true">// let p1 = 1;</span>
+Rc<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'c1'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Reference</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'p1'</span><span class="token punctuation">,</span>
+  discription<span class="token punctuation">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// p1;</span>
+<span class="token function">GetValue</span><span class="token punctuation">(</span>Rc<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'p1'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// => 1</span>
+
+<span class="token comment" spellcheck="true">// let p2 = 2;</span>
+Rc<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'c2'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Reference</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'p2'</span><span class="token punctuation">,</span>
+  discription<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  canReferenced<span class="token punctuation">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// p2;</span>
+<span class="token function">GetValue</span><span class="token punctuation">(</span>Rc<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'p2'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// => 2</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 声明 p3, p4 两个变量并分别引用 p1, p2 进行初始赋值
+ * 这里假定一个新语法 &amp;IdentifierName 来获取变量的原始引用类型类似取地址符
+ */</span>
+
+<span class="token comment" spellcheck="true">// let p3 = &amp;p1;</span>
+Rc<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'c3'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Reference</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'p3'</span><span class="token punctuation">,</span>
+  discription<span class="token punctuation">:</span> <span class="token function">GetValue</span><span class="token punctuation">(</span>Rc<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'p1'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// p3;</span>
+<span class="token function">GetValue</span><span class="token punctuation">(</span>Rc<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'p3'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// => 1</span>
+
+<span class="token comment" spellcheck="true">// let p4 = &amp;p2;</span>
+Rc<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'c4'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Reference</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'p4'</span><span class="token punctuation">,</span>
+  discription<span class="token punctuation">:</span> <span class="token function">GetValue</span><span class="token punctuation">(</span>Rc<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'p2'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// p4;</span>
+<span class="token function">GetValue</span><span class="token punctuation">(</span>Rc<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'p4'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// => 2</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 尝试改变 p3, p4 的值，测试能否影响到 p1, p2
+ */</span>
+
+<span class="token comment" spellcheck="true">// p3 = 0;</span>
+Rc<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'c5'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Reference</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'p3'</span><span class="token punctuation">,</span>
+  discription<span class="token punctuation">:</span> <span class="token number">0</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// p4 = 0;</span>
+Rc<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'c6'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Reference</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'p4'</span><span class="token punctuation">,</span>
+  discription<span class="token punctuation">:</span> <span class="token number">0</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// p1;</span>
+<span class="token function">GetValue</span><span class="token punctuation">(</span>Rc<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'p1'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// => 0</span>
+
+<span class="token comment" spellcheck="true">// p2;</span>
+<span class="token function">GetValue</span><span class="token punctuation">(</span>Rc<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'p2'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// => 2</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 最终尝试通过改变 p3 影响 p1，成功了，而通过改变 p4 影响 p2 失败了。
+ * 原因是 p2 通过设置 canReferenced 属性拒绝了被引用传递。
+ */</span></code></pre><p data-reactid="75"><!-- react-text: 76 -->可以看到，一个简单的引用传递就实现了。是不是非常有趣？<!-- /react-text --></p><p data-reactid="77"><!-- react-text: 78 -->完<!-- /react-text --></p></article></div><div data-reactid="79"><div class="blog-star" data-reactid="80"><iframe src="https://ghbtns.com/github-btn.html?user=jazzysnail&amp;repo=blog&amp;type=star&amp;count=true&amp;size=small" scrolling="0" data-reactid="81"></iframe></div></div><div class="post-footer" data-reactid="82"><div class="post-footer-line" data-reactid="83"></div><a class="previous" href="posts/My-understanding-on-closures" data-reactid="84"><i class="mineicon mineicon-arrowleft" data-reactid="85"></i><!-- react-text: 86 --> <!-- /react-text --><span class="label" data-reactid="87">prev</span><span class="post-title" data-reactid="88">关于闭包之我见</span></a><div class="comment-tip" data-reactid="89"><span data-reactid="90">⌘ + enter post comment</span></div><a class="next" href="posts/ES-new" data-reactid="91"><span class="post-title" data-reactid="92">New</span><span class="label" data-reactid="93">next</span><!-- react-text: 94 --> <!-- /react-text --><i class="mineicon mineicon-arrowright" data-reactid="95"></i></a></div></div></div><footer data-reactid="96"><span class="linkup" data-reactid="97"><a href="http://github.com/jazzysnail" target="_blank" data-reactid="98"><i class="mineicon mineicon-github" data-reactid="99"></i></a><a href="http://2017.zcool.com.cn/u/2061043" target="_blank" data-reactid="100"><i class="mineicon mineicon-zcool" data-reactid="101"></i></a></span><p data-reactid="102"><!-- react-text: 103 -->All Content Copyright © <!-- /react-text --><!-- react-text: 104 -->2016<!-- /react-text --><!-- react-text: 105 -->-<!-- /react-text --><!-- react-text: 106 -->2017<!-- /react-text --><!-- react-text: 107 --> leon’s blog<!-- /react-text --></p><p style="color:#ccc;" data-reactid="108"><!-- react-text: 109 -->Powered by <!-- /react-text --><a href="https://github.com/benjycui/bisheng" target="_blank" data-reactid="110">Bisheng</a></p></footer></div></div>
+  </body>
+  <script src="/common.js"></script>
+  <script src="/index.js"></script>
+</html>
